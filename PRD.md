@@ -28,6 +28,7 @@ Turn a standard blog post into an auto-playing **stories/slideshow** experience.
 - Edge cases:
   - leading divider: ignored
   - multiple dividers: no empty slides
+  - split produces only one slide (e.g. no dividers, or only leading/trailing dividers with a single content run): render as normal article (non-stories)
   - no divider: render as normal article (non-stories)
 
 #### 5.2 Stories playback
@@ -41,7 +42,7 @@ Turn a standard blog post into an auto-playing **stories/slideshow** experience.
 - **Keyboard**
   - `ArrowLeft` / `ArrowRight`: prev/next
   - `Space`: pause/play toggle
-  - `Escape`: exit stories view
+  - `Escape`: exit stories view (current implementation: navigate back to the blog home)
 
 #### 5.3 Animations (default)
 - **Slide enter**: Animate.css `fadeInRight`
@@ -59,13 +60,13 @@ If `prefers-reduced-motion: reduce`:
 - No Convex schema changes.
 
 ### 7) Functional Requirements (Acceptance Criteria)
-- **AC1**: A post containing at least one `divider` renders in stories mode.
+- **AC1**: A post whose blocks split into **more than one slide** (at least one `divider` between non-empty content groups) renders in stories mode. A single-slide split stays in the normal article view even if a `divider` block exists (e.g. trailing divider after one section).
 - **AC2**: Slides advance automatically every **5 seconds** when not paused.
 - **AC3**: Holding pointer down pauses; releasing resumes.
 - **AC4**: Left/right zones navigate prev/next; progress bar updates correctly.
 - **AC5**: Slide transition and per-block animations apply by default.
 - **AC6**: With reduced motion enabled, autoplay and animations are disabled.
-- **AC7**: Posts without dividers render exactly as the current article view.
+- **AC7**: Posts that do not enter stories mode (including posts with no dividers, and posts where splitting yields only one slide) render exactly as the current article view.
 
 ### 9) Dependencies
 - **animate.css** (runtime CSS dependency)
