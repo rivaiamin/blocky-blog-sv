@@ -1,3 +1,4 @@
+import type { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
 import Paragraph from '@editorjs/paragraph';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
@@ -5,9 +6,12 @@ import Quote from '@editorjs/quote';
 import Image from '@editorjs/image';
 import { DividerTool } from './divider-tool';
 
-export function getEditorTools() {
+export function getEditorTools(): NonNullable<EditorConfig['tools']> {
 	return {
-		paragraph: Paragraph,
+		paragraph: {
+			class: Paragraph,
+			config: { preserveBlank: true }
+		},
 		header: Header,
 		list: {
 			class: List,
@@ -32,5 +36,5 @@ export function getEditorTools() {
 			}
 		},
 		divider: DividerTool
-	};
+	} as NonNullable<EditorConfig['tools']>;
 }

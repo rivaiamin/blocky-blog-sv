@@ -16,6 +16,13 @@
 	let holderEl = $state<HTMLDivElement | undefined>(undefined);
 	let editor: EditorJS | null = null;
 
+	/** Latest saved blocks from the editor (call before form POST). */
+	export async function getBlocksForSubmit(): Promise<PostBlock[]> {
+		if (!editor) return [];
+		const data = await editor.save();
+		return outputDataToBlocks(data ?? { blocks: [] });
+	}
+
 	onMount(async () => {
 		if (!browser || !holderEl) return;
 		const [{ default: EditorJS }, { getEditorTools }] = await Promise.all([
