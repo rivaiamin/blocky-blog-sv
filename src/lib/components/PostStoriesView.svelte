@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
 	import { splitBlocksIntoSlides } from '$lib/slides';
 	import type { PostBlock } from '$lib/types/blocks';
 	import { cn } from '$lib/utils/cn';
@@ -24,6 +26,8 @@
 
 	let reducedMotion = $state(false);
 	let activeIndex = $state(0);
+	/** 1 = forward (next / scroll down), -1 = backward (previous / scroll up) */
+	let slideTransitionDir = $state<1 | -1>(1);
 	let paused = $state(false);
 	let progress = $state(0);
 
@@ -36,7 +40,11 @@
 	const durationMs = $derived(Math.max(1, secondsPerSlide * 1000));
 
 	function goTo(nextIndex: number) {
+		const prev = activeIndex;
 		const clamped = Math.max(0, Math.min(slides.length - 1, nextIndex));
+		if (clamped !== prev) {
+			slideTransitionDir = clamped > prev ? 1 : -1;
+		}
 		activeIndex = clamped;
 		elapsed = 0;
 		progress = 0;
@@ -106,9 +114,15 @@
 	});
 
 	const activeSlide = $derived(slides[activeIndex] ?? []);
-	const slideEnterClass = $derived(
-		reducedMotion ? '' : 'animate__animated animate__slideInDown'
-	);
+
+	/** Vertical travel for “scroll” transitions (px). Forward: out moves up, in from below. */
+	const slideFlyY = 56;
+	const slideInDuration = $derived(reducedMotion ? 0 : 420);
+	const slideOutDuration = $derived(reducedMotion ? 0 : 360);
+	const slideFlyEasing = cubicOut;
+	const slideFlyInY = $derived(slideTransitionDir * slideFlyY);
+	const slideFlyOutY = $derived(-slideTransitionDir * slideFlyY);
+
 	const blockAnimClass = $derived(
 		reducedMotion ? '' : 'animate__animated animate__slideInUp'
 	);
@@ -200,9 +214,21 @@
 				></button>
 			</div>
 
-			<div class="relative z-10 p-8 lg:p-10">
+			<div class="relative z-10 grid grid-cols-1 p-8 lg:p-10">
 				{#key activeIndex}
-					<div class={slideEnterClass}>
+					<div
+						class="col-start-1 row-start-1"
+						in:fly={{
+							y: slideFlyInY,
+							duration: slideInDuration,
+							easing: slideFlyEasing
+						}}
+						out:fly={{
+							y: slideFlyOutY,
+							duration: slideOutDuration,
+							easing: slideFlyEasing
+						}}
+					>
 						<div class="prose prose-lg max-w-none">
 							{#each activeSlide as block, i (block.id)}
 								<div

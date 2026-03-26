@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PostBlock } from '$lib/types/blocks';
-
+	import { htmlDecode } from '$lib/utils/htmlDecode';
 	let { block }: { block: PostBlock } = $props();
 </script>
 
@@ -16,14 +16,14 @@
 	{/if}
 {:else if block.type === 'paragraph'}
 	<p class="mb-4 leading-relaxed text-slate-800">
-		{String((block.content as { text?: string }).text ?? '')}
+		{htmlDecode(String((block.content as { text?: string }).text ?? ''))}
 	</p>
 {:else if block.type === 'quote'}
 	<blockquote
 		class="my-6 border-l-4 border-slate-300 pl-6 text-lg italic text-slate-700"
 		style:border-color="var(--color-primary)"
 	>
-		<p class="mb-2">{String((block.content as { text?: string }).text ?? '')}</p>
+		<p class="mb-2">{ htmlDecode(String((block.content as { text?: string }).text ?? ''))}</p>
 		{#if (block.content as { author?: string }).author}
 			<cite class="text-sm not-italic text-slate-500">
 				— {String((block.content as { author?: string }).author)}</cite
