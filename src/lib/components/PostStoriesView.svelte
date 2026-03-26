@@ -107,10 +107,10 @@
 
 	const activeSlide = $derived(slides[activeIndex] ?? []);
 	const slideEnterClass = $derived(
-		reducedMotion ? '' : 'animate__animated animate__faster animate__fadeInRight'
+		reducedMotion ? '' : 'animate__animated animate__slideInDown'
 	);
 	const blockAnimClass = $derived(
-		reducedMotion ? '' : 'animate__animated animate__faster animate__fadeInUp'
+		reducedMotion ? '' : 'animate__animated animate__slideInUp'
 	);
 </script>
 
@@ -148,7 +148,7 @@
 		</div>
 
 		<div class="mb-3 flex gap-1">
-			{#each slides as _, i (i)}
+			{#each slides as slide, i (slide)}
 				<div class="h-1 flex-1 overflow-hidden rounded-full bg-slate-200" aria-hidden="true">
 					<div
 						class="h-full bg-slate-900/70"

@@ -4,19 +4,22 @@
 	import PostStoriesView from '$lib/components/PostStoriesView.svelte';
 	import { splitBlocksIntoSlides } from '$lib/slides';
 	import type { PostBlock } from '$lib/types/blocks';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 
 	const blocks = $derived((data.post.blocks ?? []) as PostBlock[]);
 	const slides = $derived(splitBlocksIntoSlides(blocks));
 	const isStories = $derived(slides.length > 1);
+
+	const dashboardUrl = resolve('/dashboard');
 </script>
 
 <div class="mx-auto max-w-3xl">
 	<button
 		type="button"
 		class="theme-text-primary mb-8 inline-flex items-center gap-1 font-medium transition-opacity hover:opacity-80"
-		onclick={() => goto('/')}
+		onclick={() => goto(dashboardUrl)}
 	>
 		← Back to blog
 	</button>
@@ -29,7 +32,7 @@
 				createdAt: data.post.createdAt,
 				blocks: blocks as PostBlock[]
 			}}
-			onExit={() => goto('/')}
+			onExit={() => goto(dashboardUrl)}
 		/>
 	{:else}
 		<article
