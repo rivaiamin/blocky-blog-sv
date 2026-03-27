@@ -4,7 +4,8 @@ export type BlockType =
 	| 'image'
 	| 'quote'
 	| 'list'
-	| 'divider';
+	| 'divider'
+	| 'bubbleText';
 
 export type PostBlock = {
 	id: string;

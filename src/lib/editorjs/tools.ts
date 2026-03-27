@@ -5,6 +5,7 @@ import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
 import Image from '@editorjs/image';
 import { DividerTool } from './divider-tool';
+import { BubbleTextTool } from './bubble-text-tool';
 
 export function getEditorTools(): NonNullable<EditorConfig['tools']> {
 	return {
@@ -35,6 +36,7 @@ export function getEditorTools(): NonNullable<EditorConfig['tools']> {
 				}
 			}
 		},
-		divider: DividerTool
+		divider: DividerTool,
+		bubbleText: BubbleTextTool
 	} as NonNullable<EditorConfig['tools']>;
 }

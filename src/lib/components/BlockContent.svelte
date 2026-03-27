@@ -75,4 +75,23 @@
 	<div class="my-8 flex justify-center">
 		<div class="h-px w-24 bg-slate-300"></div>
 	</div>
+{:else if block.type === 'bubbleText'}
+	{@const c = block.content as {
+		text?: string;
+		arrowPosition?: 'left' | 'center' | 'right';
+		lineStyle?: 'solid' | 'dashed' | 'dotted';
+	}}
+	{@const lineClass = c.lineStyle === 'dashed'
+		? 'bubble-text-dashed'
+		: c.lineStyle === 'dotted'
+			? 'bubble-text-dotted'
+			: 'bubble-text-solid'}
+	{@const arrowPosClass = c.arrowPosition === 'right' ? 'bubble-right' : c.arrowPosition === 'center' ? 'bubble-center' : 'bubble-left'}
+	<div class="my-6">
+		<div class={`speech-bubble round ${arrowPosClass} ${lineClass}`}>
+			<div class="speech-bubble__content">
+				{htmlDecode(String(c.text ?? ''))}
+			</div>
+		</div>
+	</div>
 {/if}

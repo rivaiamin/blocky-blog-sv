@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+@import '../lib/editorjs/bubble-text-tool.css';
 
 .theme-text-primary {
 	color: var(--color-primary);

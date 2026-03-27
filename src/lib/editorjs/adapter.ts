@@ -98,6 +98,23 @@ export function blocksToOutputData(blocks: PostBlock[]): OutputData {
 			case 'divider':
 				out.push({ type: 'divider', id: b.id, data: {} });
 				break;
+			case 'bubbleText': {
+				const c = b.content as {
+					text?: string;
+					arrowPosition?: 'left' | 'center' | 'right';
+					lineStyle?: 'solid' | 'dashed' | 'dotted';
+				};
+				out.push({
+					type: 'bubbleText',
+					id: b.id,
+					data: {
+						text: String(c.text ?? ''),
+						arrowPosition: c.arrowPosition ?? 'left',
+						lineStyle: c.lineStyle ?? 'solid'
+					}
+				});
+				break;
+			}
 			default:
 				break;
 		}
@@ -190,6 +207,24 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 					content: {}
 				});
 				break;
+			case 'bubbleText': {
+				const d = block.data as {
+					text?: string;
+					arrowPosition?: 'left' | 'center' | 'right';
+					lineStyle?: 'solid' | 'dashed' | 'dotted';
+				};
+				out.push({
+					id,
+					type: 'bubbleText',
+					order,
+					content: {
+						text: d.text ?? '',
+						arrowPosition: d.arrowPosition ?? 'left',
+						lineStyle: d.lineStyle ?? 'solid'
+					}
+				});
+				break;
+			}
 			default:
 				break;
 		}
