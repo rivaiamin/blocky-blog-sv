@@ -101,16 +101,22 @@ export function blocksToOutputData(blocks: PostBlock[]): OutputData {
 			case 'bubbleText': {
 				const c = b.content as {
 					text?: string;
+					arrowSide?: 'bottom' | 'top' | 'left' | 'right';
 					arrowPosition?: 'left' | 'center' | 'right';
 					lineStyle?: 'solid' | 'dashed' | 'dotted';
+					shape?: 'square' | 'round' | 'circle';
+					animation?: 'none' | 'pop' | 'float';
 				};
 				out.push({
 					type: 'bubbleText',
 					id: b.id,
 					data: {
 						text: String(c.text ?? ''),
+						arrowSide: c.arrowSide ?? 'bottom',
 						arrowPosition: c.arrowPosition ?? 'left',
-						lineStyle: c.lineStyle ?? 'solid'
+						lineStyle: c.lineStyle ?? 'solid',
+						shape: c.shape ?? 'round',
+						animation: c.animation ?? 'none'
 					}
 				});
 				break;
@@ -210,8 +216,11 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 			case 'bubbleText': {
 				const d = block.data as {
 					text?: string;
+					arrowSide?: 'bottom' | 'top' | 'left' | 'right';
 					arrowPosition?: 'left' | 'center' | 'right';
 					lineStyle?: 'solid' | 'dashed' | 'dotted';
+					shape?: 'square' | 'round' | 'circle';
+					animation?: 'none' | 'pop' | 'float';
 				};
 				out.push({
 					id,
@@ -219,8 +228,11 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 					order,
 					content: {
 						text: d.text ?? '',
+						arrowSide: d.arrowSide ?? 'bottom',
 						arrowPosition: d.arrowPosition ?? 'left',
-						lineStyle: d.lineStyle ?? 'solid'
+						lineStyle: d.lineStyle ?? 'solid',
+						shape: d.shape ?? 'round',
+						animation: d.animation ?? 'none'
 					}
 				});
 				break;

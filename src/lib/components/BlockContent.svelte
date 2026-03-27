@@ -78,17 +78,29 @@
 {:else if block.type === 'bubbleText'}
 	{@const c = block.content as {
 		text?: string;
+		arrowSide?: 'bottom' | 'top' | 'left' | 'right';
 		arrowPosition?: 'left' | 'center' | 'right';
 		lineStyle?: 'solid' | 'dashed' | 'dotted';
+		shape?: 'square' | 'round' | 'circle';
+		animation?: 'none' | 'pop' | 'float';
 	}}
 	{@const lineClass = c.lineStyle === 'dashed'
 		? 'bubble-text-dashed'
 		: c.lineStyle === 'dotted'
 			? 'bubble-text-dotted'
 			: 'bubble-text-solid'}
-	{@const arrowPosClass = c.arrowPosition === 'right' ? 'bubble-right' : c.arrowPosition === 'center' ? 'bubble-center' : 'bubble-left'}
+	{@const shapeClass = c.shape === 'circle' ? 'circle' : c.shape === 'square' ? '' : 'round'}
+	{@const sideClass = c.arrowSide === 'top' ? 't' : c.arrowSide === 'left' ? 'l' : c.arrowSide === 'right' ? 'r' : ''}
+	{@const arrowPosClass = c.arrowSide === 'left' || c.arrowSide === 'right'
+		? ''
+		: c.arrowPosition === 'right'
+			? 'bubble-right'
+			: c.arrowPosition === 'center'
+				? 'bubble-center'
+				: 'bubble-left'}
+	{@const animationClass = c.animation === 'pop' ? 'pop' : c.animation === 'float' ? 'float' : ''}
 	<div class="my-6">
-		<div class={`speech-bubble round ${arrowPosClass} ${lineClass}`}>
+		<div class={`speech-bubble ${shapeClass} ${sideClass} ${arrowPosClass} ${lineClass} ${animationClass}`}>
 			<div class="speech-bubble__content">
 				{htmlDecode(String(c.text ?? ''))}
 			</div>
