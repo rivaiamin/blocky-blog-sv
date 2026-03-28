@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
@@ -74,26 +75,20 @@
 			<p class="theme-text-secondary text-lg">No posts published yet.</p>
 		</div>
 	{:else}
-		<div class="grid gap-6">
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{#each data.posts as post (post.id)}
 				<a
 					href={resolve(`/post/${post.slug}`)}
-					class="theme-card block cursor-pointer border border-slate-200/80 bg-white/90 p-8 backdrop-blur-sm"
+					class="block cursor-pointer transition-opacity hover:opacity-95"
 				>
-					<h2
-						class="theme-text-primary mb-3 text-2xl font-bold transition-opacity hover:opacity-80"
-					>
-						{post.title}
-					</h2>
-					{#if post.excerpt}
-						<p class="mb-4 line-clamp-3 text-slate-600">{post.excerpt}</p>
-					{/if}
-					<div class="theme-text-secondary flex items-center justify-between text-sm">
-						<span>{post.createdAt.toLocaleDateString()}</span>
-						<span class="theme-text-primary font-medium transition-opacity hover:opacity-80"
-							>Read more →</span
-						>
-					</div>
+					<PostCoverHero
+						variant="card"
+						coverUrl={post.coverImage}
+						title={post.title}
+						excerpt={post.excerpt}
+						meta={`${post.createdAt.toLocaleDateString()} · Read more →`}
+						textScrim={post.options?.coverTextScrim ?? false}
+					/>
 				</a>
 			{/each}
 		</div>

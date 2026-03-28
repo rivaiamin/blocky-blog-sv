@@ -1,5 +1,6 @@
 import { relations, sql } from 'drizzle-orm';
 import { index, jsonb, pgTable, serial, text, timestamp, boolean, uuid } from 'drizzle-orm/pg-core';
+import type { PostOptions } from '$lib/types/post-options';
 import { user } from './auth.schema';
 
 /** Legacy block shape (matches Convex posts.blocks) */
@@ -21,6 +22,10 @@ export const posts = pgTable(
 		slug: text('slug').notNull().unique(),
 		excerpt: text('excerpt'),
 		coverImage: text('cover_image'),
+		options: jsonb('options')
+			.$type<PostOptions>()
+			.notNull()
+			.default(sql`'{}'::jsonb`),
 		published: boolean('published').notNull().default(false),
 		blocks: jsonb('blocks')
 			.$type<PostBlockRow[]>()

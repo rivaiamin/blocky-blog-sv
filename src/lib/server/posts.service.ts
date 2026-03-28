@@ -1,6 +1,7 @@
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { posts, type PostBlockRow } from '$lib/server/db/schema';
+import type { PostOptions } from '$lib/types/post-options';
 
 const initialBlocks = (): PostBlockRow[] => [
 	{
@@ -73,6 +74,9 @@ export async function updatePost(
 	patch: Partial<{
 		title: string;
 		excerpt: string | null;
+		coverImage: string | null;
+		/** Shallow-merged into existing row.options */
+		options: Partial<PostOptions>;
 		published: boolean;
 		blocks: PostBlockRow[];
 		slug: string;
@@ -86,6 +90,10 @@ export async function updatePost(
 		.set({
 			...(patch.title !== undefined && { title: patch.title }),
 			...(patch.excerpt !== undefined && { excerpt: patch.excerpt }),
+			...(patch.coverImage !== undefined && { coverImage: patch.coverImage }),
+			...(patch.options !== undefined && {
+				options: { ...(row.options ?? {}), ...patch.options } as PostOptions
+			}),
 			...(patch.published !== undefined && { published: patch.published }),
 			...(patch.blocks !== undefined && { blocks: patch.blocks }),
 			...(patch.slug !== undefined && { slug: patch.slug })

@@ -24,6 +24,7 @@
 	border-radius: var(--bubble-corners);
 	max-width: var(--w);
 	box-shadow: 0 0 0 var(--border-size) var(--border-color);
+	border: var(--border-size) solid var(--border-color);
 }
 
 .speech-bubble.round {

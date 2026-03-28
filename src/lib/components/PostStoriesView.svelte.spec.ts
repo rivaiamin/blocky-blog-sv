@@ -18,6 +18,8 @@ function dispatchKey(key: string) {
 	window.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
 }
 
+const slowStory = { secondsPerSlide: 86_400 } as const;
+
 describe('PostStoriesView', () => {
 	const originalMatchMedia = window.matchMedia.bind(window);
 
@@ -32,14 +34,15 @@ describe('PostStoriesView', () => {
 				createdAt: baseDate,
 				blocks: twoSlideBlocks()
 			},
-			onExit: () => {}
+			onExit: () => {},
+			...slowStory
 		});
 
-		await expect.element(page.getByText(/1\/2/)).toBeInTheDocument();
+		await expect.element(page.getByRole('heading', { name: 'Story post' })).toBeInTheDocument();
 		dispatchKey('ArrowRight');
-		await expect.element(page.getByText(/2\/2/)).toBeInTheDocument();
+		await expect.element(page.getByText('SlideOne')).toBeInTheDocument();
 		dispatchKey('ArrowLeft');
-		await expect.element(page.getByText(/1\/2/)).toBeInTheDocument();
+		await expect.element(page.getByRole('heading', { name: 'Story post' })).toBeInTheDocument();
 	});
 
 	it('invokes onExit when Escape is pressed', async () => {
@@ -52,7 +55,8 @@ describe('PostStoriesView', () => {
 			},
 			onExit: () => {
 				exited = true;
-			}
+			},
+			...slowStory
 		});
 
 		dispatchKey('Escape');
@@ -66,7 +70,8 @@ describe('PostStoriesView', () => {
 				createdAt: baseDate,
 				blocks: twoSlideBlocks()
 			},
-			onExit: () => {}
+			onExit: () => {},
+			...slowStory
 		});
 
 		await expect.element(page.getByText(/Playing/)).toBeInTheDocument();
@@ -97,7 +102,8 @@ describe('PostStoriesView', () => {
 				createdAt: baseDate,
 				blocks: twoSlideBlocks()
 			},
-			onExit: () => {}
+			onExit: () => {},
+			...slowStory
 		});
 
 		await expect.element(page.getByText(/Reduced motion enabled/)).toBeInTheDocument();
