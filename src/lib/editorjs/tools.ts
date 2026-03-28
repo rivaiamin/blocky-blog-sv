@@ -27,9 +27,22 @@ export function getEditorTools(): NonNullable<EditorConfig['tools']> {
 			class: Image,
 			config: {
 				uploader: {
-					uploadByFile: async () => ({
-						success: 0 as const
-					}),
+					uploadByFile: async (file: Blob) => {
+						const body = new FormData();
+						body.append('image', file, 'image');
+						const res = await fetch('/api/editor-image', {
+							method: 'POST',
+							body,
+							credentials: 'include'
+						});
+						if (!res.ok) return { success: 0 as const };
+						const data = (await res.json()) as {
+							success?: number;
+							file?: { url?: string };
+						};
+						if (data.success !== 1 || !data.file?.url) return { success: 0 as const };
+						return { success: 1 as const, file: { url: data.file.url } };
+					},
 					uploadByUrl: async (url: string) => ({
 						success: 1 as const,
 						file: { url }

@@ -51,12 +51,12 @@
 	<figure class="my-8">
 		{#if c.url}
 			<div
-				class="overflow-hidden rounded-xl border border-slate-200/80 bg-slate-50/80 shadow-sm"
+				class="text-center w-full"
 			>
 				<img
 					src={c.url}
 					alt={c.title || c.caption || 'Image'}
-					class="max-h-112 w-full object-contain"
+					class="max-h-112 rounded-xl mx-auto"
 				/>
 			</div>
 		{/if}
