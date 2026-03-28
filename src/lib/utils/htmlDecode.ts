@@ -25,9 +25,7 @@ export function htmlDecode(str: string): string {
 	do {
 		prev = out;
 		out = out
-			.replace(/&#x([0-9a-fA-F]+);/gi, (_, hex) =>
-				String.fromCodePoint(parseInt(hex, 16))
-			)
+			.replace(/&#x([0-9a-fA-F]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
 			.replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(Number(dec)))
 			.replace(/&([a-zA-Z][a-zA-Z0-9]*);/g, (full, name: string) => {
 				const decoded = named[name.toLowerCase()];

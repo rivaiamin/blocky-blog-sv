@@ -9,8 +9,7 @@ const DEFAULT_SETTINGS = {
 	webName: 'Personal Blog',
 	hero: {
 		title: 'Welcome to My Blog',
-		description:
-			'Thoughts, stories, and ideas about technology, design, and life.',
+		description: 'Thoughts, stories, and ideas about technology, design, and life.',
 		imageUrl: '',
 		ctaLabel: '',
 		ctaHref: ''

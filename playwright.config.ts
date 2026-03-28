@@ -2,8 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 const databaseUrl = process.env.DATABASE_URL ?? 'postgres://localhost:5432/blocky_blog_sv';
 const origin = process.env.ORIGIN ?? 'http://localhost:4173';
-const authSecret =
-	process.env.BETTER_AUTH_SECRET ?? 'e2e-test-secret-must-be-at-least-32-chars';
+const authSecret = process.env.BETTER_AUTH_SECRET ?? 'e2e-test-secret-must-be-at-least-32-chars';
 
 export default defineConfig({
 	webServer: {

@@ -6,8 +6,7 @@
 	const hero = $derived(
 		data.site?.hero ?? {
 			title: 'Welcome to My Blog',
-			description:
-				'Thoughts, stories, and ideas about technology, design, and life.',
+			description: 'Thoughts, stories, and ideas about technology, design, and life.',
 			imageUrl: '',
 			ctaLabel: '',
 			ctaHref: ''
@@ -32,7 +31,7 @@
 		<div class={hasHeroImage ? 'order-2 lg:order-1' : ''}>
 			<h1
 				class={hasHeroImage
-					? 'theme-text-primary mb-4 text-4xl font-bold leading-tight lg:text-5xl'
+					? 'theme-text-primary mb-4 text-4xl leading-tight font-bold lg:text-5xl'
 					: 'theme-text-primary mb-6 text-5xl font-bold'}
 			>
 				{hero.title}
@@ -81,7 +80,9 @@
 					href={resolve(`/post/${post.slug}`)}
 					class="theme-card block cursor-pointer border border-slate-200/80 bg-white/90 p-8 backdrop-blur-sm"
 				>
-					<h2 class="theme-text-primary mb-3 text-2xl font-bold hover:opacity-80 transition-opacity">
+					<h2
+						class="theme-text-primary mb-3 text-2xl font-bold transition-opacity hover:opacity-80"
+					>
 						{post.title}
 					</h2>
 					{#if post.excerpt}
@@ -89,7 +90,7 @@
 					{/if}
 					<div class="theme-text-secondary flex items-center justify-between text-sm">
 						<span>{post.createdAt.toLocaleDateString()}</span>
-						<span class="theme-text-primary font-medium hover:opacity-80 transition-opacity"
+						<span class="theme-text-primary font-medium transition-opacity hover:opacity-80"
 							>Read more →</span
 						>
 					</div>

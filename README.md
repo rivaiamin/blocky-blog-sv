@@ -12,10 +12,10 @@ Full product requirements for the stories experience are in [`PRD.md`](./PRD.md)
 
 ## Tech stack
 
-- Svelte 5, SvelteKit, TypeScript, Tailwind CSS  
-- Drizzle ORM + PostgreSQL  
-- better-auth  
-- @editorjs/*, animate.css, sharp  
+- Svelte 5, SvelteKit, TypeScript, Tailwind CSS
+- Drizzle ORM + PostgreSQL
+- better-auth
+- @editorjs/\*, animate.css, sharp
 
 ## Setup
 
@@ -26,11 +26,10 @@ Full product requirements for the stories experience are in [`PRD.md`](./PRD.md)
    ```
 
 2. **Environment**: copy `.env.example` to `.env` and set:
-
-   - `DATABASE_URL` — PostgreSQL connection string  
-   - `BETTER_AUTH_SECRET` — see [Better Auth installation](https://www.better-auth.com/docs/installation)  
-   - `ORIGIN` — your app origin where required for auth  
-   - `KLIPY_API_KEY` — optional, for the GIF tool in the editor  
+   - `DATABASE_URL` — PostgreSQL connection string
+   - `BETTER_AUTH_SECRET` — see [Better Auth installation](https://www.better-auth.com/docs/installation)
+   - `ORIGIN` — your app origin where required for auth
+   - `KLIPY_API_KEY` — optional, for the GIF tool in the editor
 
 3. **Database**:
 
@@ -48,18 +47,18 @@ Open the URL Vite prints (use `--open` if your setup supports it).
 
 ## Scripts
 
-| Command | Purpose |
-|--------|---------|
-| `pnpm dev` | Dev server |
-| `pnpm build` | Production build |
-| `pnpm preview` | Preview production build |
-| `pnpm check` | `svelte-check` + sync |
-| `pnpm lint` / `pnpm format` | Prettier + ESLint |
-| `pnpm test` | Unit (Vitest) + E2E (Playwright) |
-| `pnpm test:unit` | Vitest only |
-| `pnpm test:e2e` | Playwright only |
-| `pnpm db:push` / `db:generate` / `db:migrate` / `db:studio` | Drizzle |
-| `pnpm auth:schema` | Regenerate Better Auth schema file |
+| Command                                                     | Purpose                            |
+| ----------------------------------------------------------- | ---------------------------------- |
+| `pnpm dev`                                                  | Dev server                         |
+| `pnpm build`                                                | Production build                   |
+| `pnpm preview`                                              | Preview production build           |
+| `pnpm check`                                                | `svelte-check` + sync              |
+| `pnpm lint` / `pnpm format`                                 | Prettier + ESLint                  |
+| `pnpm test`                                                 | Unit (Vitest) + E2E (Playwright)   |
+| `pnpm test:unit`                                            | Vitest only                        |
+| `pnpm test:e2e`                                             | Playwright only                    |
+| `pnpm db:push` / `db:generate` / `db:migrate` / `db:studio` | Drizzle                            |
+| `pnpm auth:schema`                                          | Regenerate Better Auth schema file |
 
 ## Deployment
 

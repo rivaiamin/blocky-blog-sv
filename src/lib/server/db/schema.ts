@@ -1,14 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import {
-	index,
-	jsonb,
-	pgTable,
-	serial,
-	text,
-	timestamp,
-	boolean,
-	uuid
-} from 'drizzle-orm/pg-core';
+import { index, jsonb, pgTable, serial, text, timestamp, boolean, uuid } from 'drizzle-orm/pg-core';
 import { user } from './auth.schema';
 
 /** Legacy block shape (matches Convex posts.blocks) */
@@ -61,9 +52,7 @@ export const siteSettings = pgTable('site_settings', {
 	}>(),
 	background: text('background').notNull(),
 	fontFamily: text('font_family').notNull(),
-	colorScheme: jsonb('color_scheme')
-		.notNull()
-		.$type<{ primary: string; secondary: string }>()
+	colorScheme: jsonb('color_scheme').notNull().$type<{ primary: string; secondary: string }>()
 });
 
 export const postsRelations = relations(posts, ({ one }) => ({

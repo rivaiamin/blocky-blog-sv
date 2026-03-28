@@ -20,12 +20,12 @@
 	</p>
 {:else if block.type === 'quote'}
 	<blockquote
-		class="my-6 border-l-4 border-slate-300 pl-6 text-lg italic text-slate-700"
+		class="my-6 border-l-4 border-slate-300 pl-6 text-lg text-slate-700 italic"
 		style:border-color="var(--color-primary)"
 	>
-		<p class="mb-2">{ htmlDecode(String((block.content as { text?: string }).text ?? ''))}</p>
+		<p class="mb-2">{htmlDecode(String((block.content as { text?: string }).text ?? ''))}</p>
 		{#if (block.content as { author?: string }).author}
-			<cite class="text-sm not-italic text-slate-500">
+			<cite class="text-sm text-slate-500 not-italic">
 				— {String((block.content as { author?: string }).author)}</cite
 			>
 		{/if}
@@ -50,13 +50,11 @@
 	{@const c = block.content as { url?: string; title?: string; caption?: string }}
 	<figure class="my-8">
 		{#if c.url}
-			<div
-				class="text-center w-full"
-			>
+			<div class="w-full text-center">
 				<img
 					src={c.url}
 					alt={c.title || c.caption || 'Image'}
-					class="max-h-112 rounded-xl mx-auto"
+					class="mx-auto max-h-112 rounded-xl"
 				/>
 			</div>
 		{/if}
@@ -79,9 +77,7 @@
 	{@const c = block.content as { url?: string; title?: string }}
 	<figure class="my-8">
 		{#if c.url}
-			<div
-				class=""
-			>
+			<div class="">
 				<img
 					src={c.url}
 					alt={c.title || 'GIF'}
@@ -104,23 +100,28 @@
 		shape?: 'square' | 'round' | 'circle';
 		animation?: 'none' | 'pop' | 'float';
 	}}
-	{@const lineClass = c.lineStyle === 'dashed'
-		? 'bubble-text-dashed'
-		: c.lineStyle === 'dotted'
-			? 'bubble-text-dotted'
-			: 'bubble-text-solid'}
+	{@const lineClass =
+		c.lineStyle === 'dashed'
+			? 'bubble-text-dashed'
+			: c.lineStyle === 'dotted'
+				? 'bubble-text-dotted'
+				: 'bubble-text-solid'}
 	{@const shapeClass = c.shape === 'circle' ? 'circle' : c.shape === 'square' ? '' : 'round'}
-	{@const sideClass = c.arrowSide === 'top' ? 't' : c.arrowSide === 'left' ? 'l' : c.arrowSide === 'right' ? 'r' : ''}
-	{@const arrowPosClass = c.arrowSide === 'left' || c.arrowSide === 'right'
-		? ''
-		: c.arrowPosition === 'right'
-			? 'bubble-right'
-			: c.arrowPosition === 'center'
-				? 'bubble-center'
-				: 'bubble-left'}
+	{@const sideClass =
+		c.arrowSide === 'top' ? 't' : c.arrowSide === 'left' ? 'l' : c.arrowSide === 'right' ? 'r' : ''}
+	{@const arrowPosClass =
+		c.arrowSide === 'left' || c.arrowSide === 'right'
+			? ''
+			: c.arrowPosition === 'right'
+				? 'bubble-right'
+				: c.arrowPosition === 'center'
+					? 'bubble-center'
+					: 'bubble-left'}
 	{@const animationClass = c.animation === 'pop' ? 'pop' : c.animation === 'float' ? 'float' : ''}
 	<div class="my-6">
-		<div class={`speech-bubble ${shapeClass} ${sideClass} ${arrowPosClass} ${lineClass} ${animationClass}`}>
+		<div
+			class={`speech-bubble ${shapeClass} ${sideClass} ${arrowPosClass} ${lineClass} ${animationClass}`}
+		>
 			<div class="speech-bubble__content">
 				{htmlDecode(String(c.text ?? ''))}
 			</div>

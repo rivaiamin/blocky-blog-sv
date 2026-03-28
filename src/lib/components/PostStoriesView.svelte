@@ -123,16 +123,14 @@
 	const slideFlyInY = $derived(slideTransitionDir * slideFlyY);
 	const slideFlyOutY = $derived(-slideTransitionDir * slideFlyY);
 
-	const blockAnimClass = $derived(
-		reducedMotion ? '' : 'animate__animated animate__slideInUp'
-	);
+	const blockAnimClass = $derived(reducedMotion ? '' : 'animate__animated animate__slideInUp');
 </script>
 
 {#if slides.length === 0}
 	<div class="theme-card border border-slate-200/80 bg-white/90 p-8 backdrop-blur-sm">
 		<div class="flex items-center justify-between gap-4">
 			<div>
-				<div class="text-xl font-bold theme-text-primary">{post.title}</div>
+				<div class="theme-text-primary text-xl font-bold">{post.title}</div>
 				{#if post.excerpt}
 					<div class="mt-1 text-slate-600">{post.excerpt}</div>
 				{/if}
@@ -149,8 +147,8 @@
 	<div class="relative mx-auto max-w-3xl">
 		<div class="mb-4 flex items-center justify-between gap-4">
 			<div class="min-w-0">
-				<div class="truncate text-lg font-semibold theme-text-primary">{post.title}</div>
-				<div class="text-xs theme-text-secondary">
+				<div class="theme-text-primary truncate text-lg font-semibold">{post.title}</div>
+				<div class="theme-text-secondary text-xs">
 					{post.createdAt.toLocaleDateString()} · {activeIndex + 1}/{slides.length}
 				</div>
 			</div>
@@ -248,18 +246,14 @@
 			</div>
 
 			<div
-				class="absolute bottom-3 left-0 right-0 z-30 flex items-center justify-center gap-2 text-xs text-slate-600"
+				class="absolute right-0 bottom-3 left-0 z-30 flex items-center justify-center gap-2 text-xs text-slate-600"
 			>
 				{#if !reducedMotion}
-					<div
-						class="rounded-full border border-slate-200 bg-white/80 px-3 py-1 shadow-sm"
-					>
+					<div class="rounded-full border border-slate-200 bg-white/80 px-3 py-1 shadow-sm">
 						{paused ? 'Paused' : 'Playing'} · Hold to pause
 					</div>
 				{:else}
-					<div
-						class="rounded-full border border-slate-200 bg-white/80 px-3 py-1 shadow-sm"
-					>
+					<div class="rounded-full border border-slate-200 bg-white/80 px-3 py-1 shadow-sm">
 						Reduced motion enabled
 					</div>
 				{/if}

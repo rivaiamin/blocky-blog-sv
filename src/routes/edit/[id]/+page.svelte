@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import EditorJs from '$lib/components/EditorJs.svelte';
 	import type { PostBlock } from '$lib/types/blocks';
-	import { resolve } from '$app/paths'
+	import { resolve } from '$app/paths';
 
 	let { data, form } = $props();
 
@@ -22,7 +22,9 @@
 
 <div class="mx-auto max-w-4xl">
 	<div class="mb-8 flex items-center justify-between">
-		<a href={dashboardUrl} class="text-slate-600 transition-colors hover:text-slate-900">← Dashboard</a>
+		<a href={dashboardUrl} class="text-slate-600 transition-colors hover:text-slate-900"
+			>← Dashboard</a
+		>
 	</div>
 
 	<form

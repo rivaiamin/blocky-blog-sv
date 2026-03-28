@@ -35,9 +35,7 @@
 			onExit={() => goto(dashboardUrl)}
 		/>
 	{:else}
-		<article
-			class="theme-card border border-slate-200/80 bg-white/90 p-8 backdrop-blur-sm lg:p-10"
-		>
+		<article class="theme-card border border-slate-200/80 bg-white/90 p-8 backdrop-blur-sm lg:p-10">
 			<header class="mb-8">
 				<h1 class="theme-text-primary mb-4 text-4xl font-bold">{data.post.title}</h1>
 				{#if data.post.excerpt}

@@ -2,6 +2,7 @@
 	import './layout.css';
 	import 'animate.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import { resolve } from '$app/paths';
 	let { data, children } = $props();
 
 	const bg = $derived(data.site?.background ?? '#f9fafb');
@@ -28,18 +29,19 @@
 	<header class="sticky top-0 z-50 backdrop-blur-md">
 		<div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
 			<div class="flex items-center gap-8">
-				<a href="/" class="theme-text-primary text-xl font-bold transition-all hover:opacity-80"
-					>{webName}</a
+				<a
+					href={resolve('/')}
+					class="theme-text-primary text-xl font-bold transition-all hover:opacity-80">{webName}</a
 				>
 				{#if data.user}
 					<nav class="flex items-center gap-1">
 						<a
-							href="/dashboard"
+							href={resolve('/dashboard')}
 							class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100/80 hover:text-slate-900"
 							>Dashboard</a
 						>
 						<a
-							href="/settings"
+							href={resolve('/settings')}
 							class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100/80 hover:text-slate-900"
 							>Settings</a
 						>
@@ -54,7 +56,9 @@
 						>
 					</form>
 				{:else}
-					<a href="/login" class="theme-text-primary font-semibold hover:opacity-80">Sign in</a>
+					<a href={resolve('/login')} class="theme-text-primary font-semibold hover:opacity-80"
+						>Sign in</a
+					>
 				{/if}
 			</div>
 		</div>

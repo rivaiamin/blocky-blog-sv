@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	let { data } = $props();
 </script>
 
@@ -7,9 +9,7 @@
 		<h1 class="theme-text-primary text-3xl font-bold">Dashboard</h1>
 	</div>
 
-	<div
-		class="theme-card mb-8 border border-slate-200/80 bg-white/90 p-6 backdrop-blur-sm"
-	>
+	<div class="theme-card mb-8 border border-slate-200/80 bg-white/90 p-6 backdrop-blur-sm">
 		<h2 class="mb-4 text-lg font-semibold text-slate-900">Create New Post</h2>
 		<form method="POST" action="?/create" class="flex gap-3">
 			<input
@@ -53,7 +53,7 @@
 							</div>
 							<div class="flex gap-2">
 								<a
-									href="/edit/{post.id}"
+									href={resolve(`/edit/${post.id}`)}
 									class="theme-text-primary rounded-lg px-4 py-2 text-sm font-medium hover:bg-slate-100"
 									>Edit</a
 								>

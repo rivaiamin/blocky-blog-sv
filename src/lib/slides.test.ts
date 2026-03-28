@@ -2,11 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { splitBlocksIntoSlides } from './slides';
 import type { PostBlock } from './types/blocks';
 
-function block(
-	id: string,
-	type: PostBlock['type'],
-	overrides: Partial<PostBlock> = {}
-): PostBlock {
+function block(id: string, type: PostBlock['type'], overrides: Partial<PostBlock> = {}): PostBlock {
 	return {
 		id,
 		type,

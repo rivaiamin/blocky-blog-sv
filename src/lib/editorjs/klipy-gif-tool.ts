@@ -133,8 +133,7 @@ export class KlipyGifTool {
 			this.selectedWrap = wrap;
 
 			const fig = document.createElement('div');
-			fig.className =
-				'overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-sm';
+			fig.className = 'overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-sm';
 			const img = document.createElement('img');
 			img.src = this.data.url;
 			img.alt = this.data.title || 'GIF';
@@ -206,7 +205,8 @@ export class KlipyGifTool {
 		wrap.appendChild(this.statusEl);
 
 		this.resultsEl = document.createElement('div');
-		this.resultsEl.className = 'grid max-h-72 grid-cols-3 gap-2 overflow-y-auto sm:grid-cols-4 md:grid-cols-5';
+		this.resultsEl.className =
+			'grid max-h-72 grid-cols-3 gap-2 overflow-y-auto sm:grid-cols-4 md:grid-cols-5';
 		wrap.appendChild(this.resultsEl);
 
 		this.loadMoreBtn = document.createElement('button');

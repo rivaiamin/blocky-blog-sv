@@ -8,7 +8,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request }) => {
 		const fd = await request.formData();
 		const webName = String(fd.get('webName') ?? '').trim();
 		if (!webName) return fail(400, { message: 'Web name required' });

@@ -49,9 +49,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	const q = url.searchParams.get('q')?.trim() ?? '';
 	const page = Math.max(1, Number(url.searchParams.get('page')) || 1);
 	const perRaw = Number(url.searchParams.get('per_page'));
-	const perPage = Number.isFinite(perRaw)
-		? Math.min(50, Math.max(8, perRaw))
-		: 24;
+	const perPage = Number.isFinite(perRaw) ? Math.min(50, Math.max(8, perRaw)) : 24;
 
 	const customerId = locals.user.id;
 
@@ -78,12 +76,14 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 	};
 
 	const rawItems = payload.data?.data ?? [];
-	const items = rawItems.map((item) => ({
-		id: item.id,
-		title: String(item.title ?? ''),
-		gifUrl: pickGifUrl(item) ?? '',
-		previewUrl: pickPreviewUrl(item) ?? ''
-	})).filter((x) => x.gifUrl);
+	const items = rawItems
+		.map((item) => ({
+			id: item.id,
+			title: String(item.title ?? ''),
+			gifUrl: pickGifUrl(item) ?? '',
+			previewUrl: pickPreviewUrl(item) ?? ''
+		}))
+		.filter((x) => x.gifUrl);
 
 	return json({
 		items,

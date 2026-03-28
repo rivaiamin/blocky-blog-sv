@@ -3,7 +3,7 @@
 
 	let { data, form } = $props();
 
-	let heroDescription = $state('');
+	let heroDescription = $derived(data.settings.hero.description);
 
 	$effect(() => {
 		heroDescription = data.settings.hero.description;
@@ -45,7 +45,7 @@
 			<h2 class="mb-4 text-lg font-semibold text-slate-900">Hero</h2>
 			<div class="space-y-4">
 				<div>
-					<label class="mb-1 block text-sm font-medium text-slate-700">Title</label>
+					<label for="heroTitle" class="mb-1 block text-sm font-medium text-slate-700">Title</label>
 					<input
 						type="text"
 						name="heroTitle"
@@ -54,7 +54,9 @@
 					/>
 				</div>
 				<div>
-					<label class="mb-1 block text-sm font-medium text-slate-700">Description</label>
+					<label for="heroDescription" class="mb-1 block text-sm font-medium text-slate-700"
+						>Description</label
+					>
 					<textarea
 						name="heroDescription"
 						rows="2"
@@ -63,7 +65,9 @@
 					></textarea>
 				</div>
 				<div>
-					<label class="mb-1 block text-sm font-medium text-slate-700">Image URL</label>
+					<label for="heroImageUrl" class="mb-1 block text-sm font-medium text-slate-700"
+						>Image URL</label
+					>
 					<input
 						type="text"
 						name="heroImageUrl"
@@ -73,7 +77,9 @@
 				</div>
 				<div class="grid gap-4 sm:grid-cols-2">
 					<div>
-						<label class="mb-1 block text-sm font-medium text-slate-700">CTA label</label>
+						<label for="ctaLabel" class="mb-1 block text-sm font-medium text-slate-700"
+							>CTA label</label
+						>
 						<input
 							type="text"
 							name="ctaLabel"
@@ -82,7 +88,9 @@
 						/>
 					</div>
 					<div>
-						<label class="mb-1 block text-sm font-medium text-slate-700">CTA link</label>
+						<label for="ctaHref" class="mb-1 block text-sm font-medium text-slate-700"
+							>CTA link</label
+						>
 						<input
 							type="text"
 							name="ctaHref"
@@ -98,7 +106,9 @@
 			<h2 class="mb-4 text-lg font-semibold text-slate-900">Theme</h2>
 			<div class="space-y-4">
 				<div>
-					<label class="mb-1 block text-sm font-medium text-slate-700">Background</label>
+					<label for="background" class="mb-1 block text-sm font-medium text-slate-700"
+						>Background</label
+					>
 					<input
 						type="text"
 						name="background"
@@ -107,7 +117,7 @@
 					/>
 				</div>
 				<div>
-					<label class="mb-1 block text-sm font-medium text-slate-700">Font</label>
+					<label for="fontFamily" class="mb-1 block text-sm font-medium text-slate-700">Font</label>
 					<select
 						name="fontFamily"
 						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
@@ -121,7 +131,9 @@
 				</div>
 				<div class="grid gap-4 sm:grid-cols-2">
 					<div>
-						<label class="mb-1 block text-sm font-medium text-slate-700">Primary</label>
+						<label for="colorPrimary" class="mb-1 block text-sm font-medium text-slate-700"
+							>Primary</label
+						>
 						<input
 							type="text"
 							name="colorPrimary"
@@ -130,7 +142,9 @@
 						/>
 					</div>
 					<div>
-						<label class="mb-1 block text-sm font-medium text-slate-700">Secondary</label>
+						<label for="colorSecondary" class="mb-1 block text-sm font-medium text-slate-700"
+							>Secondary</label
+						>
 						<input
 							type="text"
 							name="colorSecondary"
