@@ -21,7 +21,15 @@
 <div class="mx-auto max-w-2xl">
 	<h1 class="theme-text-primary mb-8 text-2xl font-bold">Frontpage settings</h1>
 
-	<form method="POST" use:enhance class="space-y-6">
+	<form
+		method="POST"
+		use:enhance={() => {
+			return async ({ update }) => {
+				await update({ reset: false });
+			};
+		}}
+		class="space-y-6"
+	>
 		<section class="theme-card border border-slate-200/80 bg-white/90 p-6 backdrop-blur-sm">
 			<h2 class="mb-4 text-lg font-semibold text-slate-900">Web name</h2>
 			<input
