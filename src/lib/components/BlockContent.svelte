@@ -75,6 +75,26 @@
 	<div class="my-8 flex justify-center">
 		<div class="h-px w-24 bg-slate-300"></div>
 	</div>
+{:else if block.type === 'gif'}
+	{@const c = block.content as { url?: string; title?: string }}
+	<figure class="my-8">
+		{#if c.url}
+			<div
+				class=""
+			>
+				<img
+					src={c.url}
+					alt={c.title || 'GIF'}
+					class="max-h-112 w-full object-contain"
+					loading="lazy"
+				/>
+			</div>
+		{/if}
+		{#if c.title}
+			<!-- <figcaption class="mt-2 text-center text-sm text-slate-600">{c.title}</figcaption> -->
+		{/if}
+		<!-- <p class="mt-2 text-center text-[11px] text-slate-400">GIFs via Klipy</p> -->
+	</figure>
 {:else if block.type === 'bubbleText'}
 	{@const c = block.content as {
 		text?: string;

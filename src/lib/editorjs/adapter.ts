@@ -121,6 +121,19 @@ export function blocksToOutputData(blocks: PostBlock[]): OutputData {
 				});
 				break;
 			}
+			case 'gif': {
+				const c = b.content as { url?: string; title?: string; klipyId?: number };
+				out.push({
+					type: 'gif',
+					id: b.id,
+					data: {
+						url: String(c.url ?? ''),
+						title: String(c.title ?? ''),
+						...(typeof c.klipyId === 'number' ? { klipyId: c.klipyId } : {})
+					}
+				});
+				break;
+			}
 			default:
 				break;
 		}
@@ -233,6 +246,20 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 						lineStyle: d.lineStyle ?? 'solid',
 						shape: d.shape ?? 'round',
 						animation: d.animation ?? 'none'
+					}
+				});
+				break;
+			}
+			case 'gif': {
+				const d = block.data as { url?: string; title?: string; klipyId?: number };
+				out.push({
+					id,
+					type: 'gif',
+					order,
+					content: {
+						url: d.url ?? '',
+						title: d.title ?? '',
+						...(typeof d.klipyId === 'number' ? { klipyId: d.klipyId } : {})
 					}
 				});
 				break;

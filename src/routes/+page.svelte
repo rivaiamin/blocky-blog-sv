@@ -52,13 +52,13 @@
 						onclick={ctaClick}>{hero.ctaLabel}</button
 					>
 				{/if}
-				{#if hasHeroImage}
+				<!-- {#if hasHeroImage}
 					<a
 						href={resolve('/dashboard')}
 						class="theme-text-primary inline-flex items-center gap-1.5 font-medium hover:opacity-80"
 						>Know more <span class="text-amber-400" aria-hidden="true">✦</span></a
 					>
-				{/if}
+				{/if} -->
 			</div>
 		</div>
 		{#if hasHeroImage}
