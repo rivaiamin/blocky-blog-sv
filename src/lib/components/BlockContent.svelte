@@ -64,7 +64,7 @@
 					<div class="font-semibold text-slate-900">{c.title}</div>
 				{/if}
 				{#if c.caption}
-					<div class="text-sm text-slate-500">{c.caption}</div>
+					<div class="text-sm text-slate-500">{htmlDecode(String(c.caption ?? ''))}</div>
 				{/if}
 			</figcaption>
 		{/if}

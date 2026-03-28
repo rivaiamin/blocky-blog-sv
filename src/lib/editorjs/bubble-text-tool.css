@@ -24,7 +24,9 @@
 	border-radius: var(--bubble-corners);
 	max-width: var(--w);
 	box-shadow: 0 0 0 var(--border-size) var(--border-color);
-	border: var(--border-size) solid var(--border-color);
+	/* outline: 1px solid var(--border-color); */
+	border: 1px solid var(--border-color);
+	text-align: center;
 }
 
 .speech-bubble.round {
@@ -202,12 +204,14 @@
 	outline: 2px dashed var(--border-color);
 	outline-offset: -2px;
 	box-shadow: none;
+	border: none;
 }
 
 .speech-bubble.bubble-text-dotted {
 	outline: 2px dotted var(--border-color);
 	outline-offset: -2px;
 	box-shadow: none;
+	border: none;
 }
 
 .speech-bubble__content {

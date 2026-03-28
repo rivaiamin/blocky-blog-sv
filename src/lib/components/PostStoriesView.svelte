@@ -153,15 +153,8 @@
 	const blockAnimClass = $derived(reducedMotion ? '' : 'animate__animated animate__slideInUp');
 </script>
 
-<div class="relative flex h-full min-h-0 w-full flex-col">
-	<div class="absolute top-0 right-0 z-30 p-3">
-		<button
-			type="button"
-			class="rounded-lg border border-white/40 bg-black/50 px-3 py-2 text-sm font-medium text-white shadow backdrop-blur-sm transition-colors hover:bg-black/65"
-			onclick={onExit}>Close</button
-		>
-	</div>
-
+<div class="relative flex h-full min-h-0 w-full flex-col text-center">
+	<!-- Close lives in flow above segments so it never covers slide content (Esc still works). -->
 	<div class="mb-3 flex shrink-0 gap-1">
 		{#each storySlides as segment, i (i)}
 			<div
@@ -286,8 +279,22 @@
 					Reduced motion enabled
 				</div>
 			{/if}
+			<button
+				type="button"
+				class="rounded-full border border-slate-300/80 bg-white/90 px-3 py-1 text-xs font-medium text-slate-800 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
+				onclick={onExit}
+				aria-label="Close story view"
+			>
+				<span class="inline-flex items-center gap-1">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+					Close
+				</span>
+			</button>
+			<!-- <div class="flex shrink-0 justify-center mt-2">
+			</div> -->
 		</div>
 	</div>
+
 
 	{#if contentSlides.length === 0}
 		<p class="mt-4 text-center text-slate-600">No content blocks yet.</p>

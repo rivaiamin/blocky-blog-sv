@@ -12,17 +12,22 @@
 	<div class="theme-card mb-8 border border-slate-200/80 bg-white/90 p-6 backdrop-blur-sm">
 		<h2 class="mb-4 text-lg font-semibold text-slate-900">Create New Post</h2>
 		<form method="POST" action="?/create" class="flex gap-3">
-			<input
-				type="text"
-				name="title"
-				placeholder="Post title..."
-				class="flex-1 rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
-			/>
-			<button
-				type="submit"
-				class="theme-btn theme-bg-primary rounded-xl px-6 py-2.5 text-white disabled:cursor-not-allowed disabled:opacity-50"
-				>Create</button
-			>
+			<div class="flex w-full max-w-full items-stretch rounded-xl border border-slate-300 overflow-hidden bg-white">
+				<input
+					type="text"
+					name="title"
+					placeholder="Post title..."
+					class="flex-1 px-4 py-2.5 outline-none bg-transparent focus:border-none focus:ring-0"
+					style="min-width:0;"
+				/>
+				<button aria-label="Create"
+					type="submit"
+					class="theme-btn theme-bg-primary px-6 py-2.5 text-white disabled:cursor-not-allowed disabled:opacity-50 rounded-none rounded-r-xl"
+					>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+					</button
+				>
+			</div>
 		</form>
 	</div>
 
@@ -52,18 +57,22 @@
 								</div>
 							</div>
 							<div class="flex gap-2">
-								<a
+								<a aria-label="Edit"
 									href={resolve(`/edit/${post.id}`)}
-									class="theme-text-primary rounded-lg px-4 py-2 text-sm font-medium hover:bg-slate-100"
-									>Edit</a
+									class="theme-text-primary rounded-lg py-2 text-sm font-medium hover:bg-slate-100"
+									>
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 10.5-10.5z"/></svg>
+									</a
 								>
 								<form method="POST" action="?/delete">
 									<input type="hidden" name="id" value={post.id} />
-									<button
+									<button aria-label="Delete"
 										type="submit"
-										class="rounded-lg px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50"
+										class="rounded-lg py-2 text-sm pl-2 font-medium text-red-600 hover:bg-red-50"
 										onclick={(e) => !confirm('Delete this post?') && e.preventDefault()}
-										>Delete</button
+										>
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+										</button
 									>
 								</form>
 							</div>

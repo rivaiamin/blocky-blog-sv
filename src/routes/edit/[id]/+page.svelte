@@ -151,7 +151,7 @@
 
 			{#if coverImage.trim() || title.trim()}
 				<div class="mt-4">
-					<p class="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">Preview (16:9)</p>
+					<!-- <p class="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">Preview (16:9)</p> -->
 					<PostCoverHero
 						coverUrl={coverImage.trim() || null}
 						title={title.trim() || 'Title'}

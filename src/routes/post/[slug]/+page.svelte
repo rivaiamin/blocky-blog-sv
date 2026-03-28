@@ -13,7 +13,7 @@
 	const slides = $derived(splitBlocksIntoSlides(blocks));
 	const isStories = $derived(slides.length > 1);
 
-	const dashboardUrl = resolve('/dashboard');
+	const homeUrl = resolve('/');
 </script>
 
 <div
@@ -38,7 +38,7 @@
 					createdAt: data.post.createdAt,
 					blocks: blocks as PostBlock[]
 				}}
-				onExit={() => goto(dashboardUrl)}
+				onExit={() => goto(homeUrl)}
 			/>
 		</div>
 	{:else}

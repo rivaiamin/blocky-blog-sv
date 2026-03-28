@@ -25,22 +25,35 @@
 
 <div class="mx-auto max-w-6xl">
 	<section
-		class={hasHeroImage
-			? 'mb-20 grid min-h-[28rem] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14'
-			: 'mb-16 text-center'}
+		class={
+			hasHeroImage
+				? 'mb-20 flex min-h-[28rem] flex-col items-center gap-10 lg:flex-row lg:gap-14'
+				: 'mb-16 text-center'
+		}
 	>
-		<div class={hasHeroImage ? 'order-2 lg:order-1' : ''}>
+		{#if hasHeroImage}
+			<div class="w-full lg:w-1/3 flex-shrink-0 flex-grow-0 order-1 lg:order-1 flex justify-center">
+				<div class="w-full max-w-lg overflow-hidden lg:aspect-auto">
+					<img src={hero.imageUrl} alt="" class="h-full w-full object-cover object-center" />
+				</div>
+			</div>
+		{/if}
+		<div class={hasHeroImage ? 'w-full lg:w-2/3 order-2 lg:order-2 flex flex-col justify-center' : ''}>
 			<h1
-				class={hasHeroImage
-					? 'theme-text-primary mb-4 text-4xl leading-tight font-bold lg:text-5xl'
-					: 'theme-text-primary mb-6 text-5xl font-bold'}
+				class={
+					hasHeroImage
+						? 'theme-text-primary mb-4 text-4xl leading-tight font-bold lg:text-2xl'
+						: 'theme-text-primary mb-6 text-5xl font-bold'
+				}
 			>
 				{hero.title}
 			</h1>
 			<p
-				class={hasHeroImage
-					? 'mb-6 max-w-lg text-lg text-slate-600'
-					: 'theme-text-secondary mx-auto mb-6 max-w-2xl text-xl'}
+				class={
+					hasHeroImage
+						? 'mb-6 max-w-lg text-lg text-slate-600'
+						: 'theme-text-secondary mx-auto mb-6 max-w-2xl text-xl'
+				}
 			>
 				{hero.description}
 			</p>
@@ -61,13 +74,6 @@
 				{/if} -->
 			</div>
 		</div>
-		{#if hasHeroImage}
-			<div class="order-1 flex justify-center lg:order-2 lg:justify-end">
-				<div class="aspect-[4/3] max-w-lg overflow-hidden lg:aspect-auto lg:min-h-[20rem]">
-					<img src={hero.imageUrl} alt="" class="h-full w-full object-cover object-center" />
-				</div>
-			</div>
-		{/if}
 	</section>
 
 	{#if data.posts.length === 0}
