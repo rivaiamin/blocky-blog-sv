@@ -84,6 +84,7 @@
 			<input
 				type="text"
 				name="title"
+				required
 				bind:value={title}
 				class="w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 			/>
