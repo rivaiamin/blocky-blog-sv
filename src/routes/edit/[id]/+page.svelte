@@ -8,6 +8,7 @@
 	let { data, form } = $props();
 
 	const dashboardUrl = resolve('/dashboard');
+	const editorImageApiUrl = resolve('/api/editor-image');
 
 	let title = $state('');
 	let excerpt = $state('');
@@ -29,7 +30,7 @@
 		try {
 			const body = new FormData();
 			body.append('image', file, file.name);
-			const res = await fetch('/api/editor-image', {
+			const res = await fetch(editorImageApiUrl, {
 				method: 'POST',
 				body,
 				credentials: 'include'
@@ -151,7 +152,7 @@
 
 			{#if coverImage.trim() || title.trim()}
 				<div class="mt-4">
-					<!-- <p class="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">Preview (16:9)</p> -->
+					<p class="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">Preview (16:9)</p>
 					<PostCoverHero
 						coverUrl={coverImage.trim() || null}
 						title={title.trim() || 'Title'}
@@ -186,7 +187,7 @@
 		</div>
 
 		{#if form?.success}
-			<p class="text-sm text-emerald-600">Saved.</p>
+			<p class="text-sm text-emerald-600" role="status" aria-live="polite">Saved.</p>
 		{/if}
 	</form>
 </div>
