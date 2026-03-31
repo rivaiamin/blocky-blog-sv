@@ -4,6 +4,7 @@ export type BlockType =
 	| 'image'
 	| 'quote'
 	| 'list'
+	| 'code'
 	| 'divider'
 	| 'bubbleText'
 	| 'gif';

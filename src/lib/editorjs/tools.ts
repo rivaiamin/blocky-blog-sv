@@ -4,6 +4,7 @@ import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
 import Image from '@editorjs/image';
+import Code from '@editorjs/code';
 import { DividerTool } from './divider-tool';
 import { BubbleTextTool } from './bubble-text-tool';
 import { KlipyGifTool } from './klipy-gif-tool';
@@ -23,6 +24,7 @@ export function getEditorTools(): NonNullable<EditorConfig['tools']> {
 			}
 		},
 		quote: Quote,
+		code: Code,
 		image: {
 			class: Image,
 			config: {

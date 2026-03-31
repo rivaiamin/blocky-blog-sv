@@ -69,6 +69,17 @@ export function blocksToOutputData(blocks: PostBlock[]): OutputData {
 				});
 				break;
 			}
+			case 'code': {
+				const c = b.content as { code?: string };
+				out.push({
+					type: 'code',
+					id: b.id,
+					data: {
+						code: String(c.code ?? '')
+					}
+				});
+				break;
+			}
 			case 'list': {
 				const c = b.content as { items?: string[]; ordered?: boolean };
 				out.push({
@@ -177,6 +188,16 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 					type: 'quote',
 					order,
 					content: { text: d.text ?? '', author: d.caption ?? '' }
+				});
+				break;
+			}
+			case 'code': {
+				const d = block.data as { code?: string };
+				out.push({
+					id,
+					type: 'code',
+					order,
+					content: { code: d.code ?? '' }
 				});
 				break;
 			}
