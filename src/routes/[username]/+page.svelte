@@ -28,11 +28,11 @@
 <div class="mx-auto max-w-6xl">
 	<section
 		class={hasHeroImage
-			? 'mb-20 flex min-h-[28rem] flex-col items-center gap-10 lg:flex-row lg:gap-14'
+			? 'mb-20 flex min-h-112 flex-col items-center gap-10 lg:flex-row lg:gap-14'
 			: 'mb-16 text-center'}
 	>
 		{#if hasHeroImage}
-			<div class="order-1 flex w-full flex-shrink-0 flex-grow-0 justify-center lg:order-1 lg:w-1/3">
+			<div class="order-1 flex w-full shrink-0 grow-0 justify-center lg:order-1 lg:w-1/3">
 				<div class="w-full max-w-lg overflow-hidden lg:aspect-auto">
 					<img src={hero.imageUrl} alt="" class="h-full w-full object-cover object-center" />
 				</div>

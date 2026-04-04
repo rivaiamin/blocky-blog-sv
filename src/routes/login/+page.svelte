@@ -14,7 +14,7 @@
 				type="email"
 				name="email"
 				required
-				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
+				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 			/>
 		</label>
 		<label class="block">
@@ -23,7 +23,7 @@
 				type="password"
 				name="password"
 				required
-				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
+				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 			/>
 		</label>
 		<button
@@ -42,7 +42,7 @@
 			<input
 				type="text"
 				name="name"
-				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
+				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 			/>
 		</label>
 		<label class="block">
@@ -52,7 +52,7 @@
 				name="username"
 				autocomplete="username"
 				placeholder="e.g. jamie-writes"
-				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
+				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 			/>
 		</label>
 	</form>
