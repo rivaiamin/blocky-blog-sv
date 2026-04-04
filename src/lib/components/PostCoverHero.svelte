@@ -35,7 +35,7 @@
 >
 	{#if hasCover}
 		<img
-			src={src}
+			{src}
 			alt=""
 			class="absolute inset-0 size-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.02]"
 		/>

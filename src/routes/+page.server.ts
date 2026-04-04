@@ -1,7 +1,7 @@
-import { getPublishedPosts } from '$lib/server/posts.service';
+import { listAuthorsWithSites } from '$lib/server/users.service';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const posts = await getPublishedPosts();
-	return { posts };
+	const authors = await listAuthorsWithSites();
+	return { authors };
 };

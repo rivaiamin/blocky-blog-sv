@@ -9,9 +9,7 @@
 	import BlockContent from './BlockContent.svelte';
 	import PostCoverHero from './PostCoverHero.svelte';
 
-	type StorySlide =
-		| { kind: 'cover' }
-		| { kind: 'content'; blocks: PostBlock[] };
+	type StorySlide = { kind: 'cover' } | { kind: 'content'; blocks: PostBlock[] };
 
 	type PostLike = {
 		title: string;
@@ -286,7 +284,17 @@
 				aria-label="Close story view"
 			>
 				<span class="inline-flex items-center gap-1">
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="lucide lucide-x"><path d="M18 6L6 18" /><path d="M6 6l12 12" /></svg
+					>
 					Close
 				</span>
 			</button>
@@ -294,7 +302,6 @@
 			</div> -->
 		</div>
 	</div>
-
 
 	{#if contentSlides.length === 0}
 		<p class="mt-4 text-center text-slate-600">No content blocks yet.</p>

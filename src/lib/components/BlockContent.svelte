@@ -20,7 +20,9 @@
 	</p>
 {:else if block.type === 'code'}
 	{@const code = String((block.content as { code?: string }).code ?? '')}
-	<pre class="my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100"><code>{code}</code></pre>
+	<pre class="my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100"><code
+			>{code}</code
+		></pre>
 {:else if block.type === 'quote'}
 	<blockquote
 		class="my-6 border-l-4 border-slate-300 pl-6 text-lg text-slate-700 italic"

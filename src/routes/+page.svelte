@@ -1,102 +1,33 @@
 <script lang="ts">
-	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
-
-	const hero = $derived(
-		data.site?.hero ?? {
-			title: 'Welcome to My Blog',
-			description: 'Thoughts, stories, and ideas about technology, design, and life.',
-			imageUrl: '',
-			ctaLabel: '',
-			ctaHref: ''
-		}
-	);
-
-	const hasHeroImage = $derived(Boolean(hero.imageUrl?.trim()));
-
-	function ctaClick() {
-		const href = hero.ctaHref ?? '';
-		if (href.startsWith('http')) window.open(href, '_blank');
-		else if (href) window.location.href = '/dashboard';
-	}
 </script>
 
-<div class="mx-auto max-w-6xl">
-	<section
-		class={
-			hasHeroImage
-				? 'mb-20 flex min-h-[28rem] flex-col items-center gap-10 lg:flex-row lg:gap-14'
-				: 'mb-16 text-center'
-		}
-	>
-		{#if hasHeroImage}
-			<div class="w-full lg:w-1/3 flex-shrink-0 flex-grow-0 order-1 lg:order-1 flex justify-center">
-				<div class="w-full max-w-lg overflow-hidden lg:aspect-auto">
-					<img src={hero.imageUrl} alt="" class="h-full w-full object-cover object-center" />
-				</div>
-			</div>
-		{/if}
-		<div class={hasHeroImage ? 'w-full lg:w-2/3 order-2 lg:order-2 flex flex-col justify-center' : ''}>
-			<h1
-				class={
-					hasHeroImage
-						? 'theme-text-primary mb-4 text-4xl leading-tight font-bold lg:text-2xl'
-						: 'theme-text-primary mb-6 text-5xl font-bold'
-				}
-			>
-				{hero.title}
-			</h1>
-			<p
-				class={
-					hasHeroImage
-						? 'mb-6 max-w-lg text-lg text-slate-600'
-						: 'theme-text-secondary mx-auto mb-6 max-w-2xl text-xl'
-				}
-			>
-				{hero.description}
-			</p>
-			<div class="flex flex-wrap items-center gap-3">
-				{#if hero.ctaLabel}
-					<button
-						type="button"
-						class="theme-btn theme-bg-secondary rounded-lg px-6 py-3 font-semibold text-white shadow-md"
-						onclick={ctaClick}>{hero.ctaLabel}</button
-					>
-				{/if}
-				<!-- {#if hasHeroImage}
-					<a
-						href={resolve('/dashboard')}
-						class="theme-text-primary inline-flex items-center gap-1.5 font-medium hover:opacity-80"
-						>Know more <span class="text-amber-400" aria-hidden="true">✦</span></a
-					>
-				{/if} -->
-			</div>
-		</div>
-	</section>
+<div class="mx-auto max-w-3xl text-center">
+	<h1 class="mb-4 text-4xl font-bold text-slate-900">Welcome</h1>
+	<p class="mb-12 text-lg text-slate-600">
+		Browse independent blogs hosted here. Each author has their own space and settings.
+	</p>
 
-	{#if data.posts.length === 0}
-		<div class="py-20 text-center">
-			<p class="theme-text-secondary text-lg">No posts published yet.</p>
-		</div>
+	{#if data.authors.length === 0}
+		<p class="text-slate-500">No public blogs yet. Sign in to create one.</p>
 	{:else}
-		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{#each data.posts as post (post.id)}
-				<a
-					href={resolve(`/post/${post.slug}`)}
-					class="block cursor-pointer transition-opacity hover:opacity-95"
-				>
-					<PostCoverHero
-						variant="card"
-						coverUrl={post.coverImage}
-						title={post.title}
-						excerpt={post.excerpt}
-						meta={`${post.createdAt.toLocaleDateString()} · Read more →`}
-						textScrim={post.options?.coverTextScrim ?? false}
-					/>
-				</a>
+		<h2 class="mb-6 text-left text-sm font-semibold tracking-wide text-slate-500 uppercase">
+			Authors
+		</h2>
+		<ul class="space-y-3 text-left">
+			{#each data.authors as a (a.username)}
+				<li>
+					<a
+						href={resolve(`/${a.username}`)}
+						class="block rounded-xl border border-slate-200 bg-white/90 px-5 py-4 shadow-sm transition-colors hover:border-slate-300 hover:bg-white"
+					>
+						<span class="font-semibold text-slate-900">{a.webName}</span>
+						<span class="mt-1 block text-sm text-slate-500">/{a.username} · {a.name}</span>
+					</a>
+				</li>
 			{/each}
-		</div>
+		</ul>
 	{/if}
 </div>

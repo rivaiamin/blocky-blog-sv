@@ -2,6 +2,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { posts, type PostBlockRow } from '$lib/server/db/schema';
 import type { PostOptions } from '$lib/types/post-options';
+import { getUserByUsername } from '$lib/server/users.service';
 
 const initialBlocks = (): PostBlockRow[] => [
 	{
@@ -12,10 +13,14 @@ const initialBlocks = (): PostBlockRow[] => [
 	}
 ];
 
-async function uniqueSlug(base: string) {
+async function uniqueSlugForAuthor(authorId: string, base: string) {
 	let s = base || 'untitled';
 	let i = 0;
-	while (await db.query.posts.findFirst({ where: eq(posts.slug, s) })) {
+	while (
+		await db.query.posts.findFirst({
+			where: and(eq(posts.slug, s), eq(posts.authorId, authorId))
+		})
+	) {
 		i += 1;
 		s = `${base || 'untitled'}-${i}`;
 	}
@@ -24,7 +29,7 @@ async function uniqueSlug(base: string) {
 
 export async function createPost(authorId: string, title: string) {
 	const base = slugifyPostTitle(title) || 'untitled';
-	const finalSlug = await uniqueSlug(base);
+	const finalSlug = await uniqueSlugForAuthor(authorId, base);
 	const [row] = await db
 		.insert(posts)
 		.values({
@@ -47,16 +52,18 @@ export async function getPostByIdForUser(id: string, userId: string | undefined)
 	return row;
 }
 
-export async function getPostBySlugPublic(slug: string) {
+export async function getPublishedPostByUsernameAndSlug(username: string, slug: string) {
+	const author = await getUserByUsername(username);
+	if (!author) return null;
 	const row = await db.query.posts.findFirst({
-		where: and(eq(posts.slug, slug), eq(posts.published, true))
+		where: and(eq(posts.slug, slug), eq(posts.authorId, author.id), eq(posts.published, true))
 	});
 	return row ?? null;
 }
 
-export async function getPublishedPosts() {
+export async function getPublishedPostsForAuthor(authorId: string) {
 	return db.query.posts.findMany({
-		where: eq(posts.published, true),
+		where: and(eq(posts.authorId, authorId), eq(posts.published, true)),
 		orderBy: [desc(posts.createdAt)]
 	});
 }
@@ -84,6 +91,13 @@ export async function updatePost(
 ) {
 	const row = await db.query.posts.findFirst({ where: eq(posts.id, id) });
 	if (!row || row.authorId !== authorId) throw new Error('Post not found or unauthorized');
+
+	if (patch.slug !== undefined && patch.slug !== row.slug) {
+		const taken = await db.query.posts.findFirst({
+			where: and(eq(posts.slug, patch.slug), eq(posts.authorId, authorId))
+		});
+		if (taken && taken.id !== id) throw new Error('Slug already in use');
+	}
 
 	await db
 		.update(posts)

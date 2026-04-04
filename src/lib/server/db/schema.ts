@@ -1,5 +1,15 @@
 import { relations, sql } from 'drizzle-orm';
-import { index, jsonb, pgTable, serial, text, timestamp, boolean, uuid } from 'drizzle-orm/pg-core';
+import {
+	index,
+	jsonb,
+	pgTable,
+	serial,
+	text,
+	timestamp,
+	boolean,
+	uniqueIndex,
+	uuid
+} from 'drizzle-orm/pg-core';
 import type { PostOptions } from '$lib/types/post-options';
 import { user } from './auth.schema';
 
@@ -19,7 +29,7 @@ export const posts = pgTable(
 			.notNull()
 			.references(() => user.id, { onDelete: 'cascade' }),
 		title: text('title').notNull(),
-		slug: text('slug').notNull().unique(),
+		slug: text('slug').notNull(),
 		excerpt: text('excerpt'),
 		coverImage: text('cover_image'),
 		options: jsonb('options')
@@ -40,13 +50,17 @@ export const posts = pgTable(
 	(t) => [
 		index('posts_author_idx').on(t.authorId),
 		index('posts_slug_idx').on(t.slug),
-		index('posts_published_idx').on(t.published)
+		index('posts_published_idx').on(t.published),
+		uniqueIndex('posts_author_slug_unique').on(t.authorId, t.slug)
 	]
 );
 
 export const siteSettings = pgTable('site_settings', {
 	id: serial('id').primaryKey(),
-	settingKey: text('setting_key').notNull().unique(),
+	userId: text('user_id')
+		.notNull()
+		.unique()
+		.references(() => user.id, { onDelete: 'cascade' }),
 	webName: text('web_name').notNull(),
 	hero: jsonb('hero').notNull().$type<{
 		title: string;
@@ -59,6 +73,13 @@ export const siteSettings = pgTable('site_settings', {
 	fontFamily: text('font_family').notNull(),
 	colorScheme: jsonb('color_scheme').notNull().$type<{ primary: string; secondary: string }>()
 });
+
+export const siteSettingsRelations = relations(siteSettings, ({ one }) => ({
+	owner: one(user, {
+		fields: [siteSettings.userId],
+		references: [user.id]
+	})
+}));
 
 export const postsRelations = relations(posts, ({ one }) => ({
 	author: one(user, {

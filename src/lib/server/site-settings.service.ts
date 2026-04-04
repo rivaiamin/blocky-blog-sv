@@ -2,10 +2,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { siteSettings } from '$lib/server/db/schema';
 
-const KEY = 'default';
-
 const DEFAULT_SETTINGS = {
-	settingKey: KEY,
 	webName: 'Personal Blog',
 	hero: {
 		title: 'Welcome to My Blog',
@@ -19,14 +16,14 @@ const DEFAULT_SETTINGS = {
 	colorScheme: { primary: '#2563eb', secondary: '#64748b' }
 };
 
-export async function getSiteSettings() {
+export async function getSiteSettingsForUser(userId: string) {
 	const row = await db.query.siteSettings.findFirst({
-		where: eq(siteSettings.settingKey, KEY)
+		where: eq(siteSettings.userId, userId)
 	});
 	if (row) return row;
 
 	await db.insert(siteSettings).values({
-		settingKey: KEY,
+		userId,
 		webName: DEFAULT_SETTINGS.webName,
 		hero: DEFAULT_SETTINGS.hero,
 		background: DEFAULT_SETTINGS.background,
@@ -35,12 +32,13 @@ export async function getSiteSettings() {
 	});
 
 	const created = await db.query.siteSettings.findFirst({
-		where: eq(siteSettings.settingKey, KEY)
+		where: eq(siteSettings.userId, userId)
 	});
 	return created!;
 }
 
-export async function updateSiteSettings(
+export async function updateSiteSettingsForUser(
+	userId: string,
 	patch: Partial<{
 		webName: string;
 		hero: {
@@ -55,7 +53,7 @@ export async function updateSiteSettings(
 		colorScheme: { primary: string; secondary: string };
 	}>
 ) {
-	const existing = await getSiteSettings();
+	const existing = await getSiteSettingsForUser(userId);
 
 	await db
 		.update(siteSettings)

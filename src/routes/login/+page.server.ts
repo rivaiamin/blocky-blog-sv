@@ -1,5 +1,11 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '$lib/server/auth';
+import {
+	assertUsernameAvailable,
+	isValidUsernameFormat,
+	normalizeUsername,
+	RESERVED_USERNAMES
+} from '$lib/server/username';
 import { APIError } from 'better-auth/api';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -36,6 +42,24 @@ export const actions: Actions = {
 		const email = formData.get('email')?.toString() ?? '';
 		const password = formData.get('password')?.toString() ?? '';
 		const name = formData.get('name')?.toString() ?? '';
+		const usernameRaw = formData.get('username')?.toString() ?? '';
+
+		let username: string | undefined;
+		if (usernameRaw.trim()) {
+			const u = normalizeUsername(usernameRaw);
+			if (!isValidUsernameFormat(u)) {
+				return fail(400, { message: 'Invalid username format' });
+			}
+			if (RESERVED_USERNAMES.has(u)) {
+				return fail(400, { message: 'This username is reserved' });
+			}
+			try {
+				await assertUsernameAvailable(u);
+			} catch {
+				return fail(400, { message: 'Username is already taken' });
+			}
+			username = u;
+		}
 
 		try {
 			await auth.api.signUpEmail({
@@ -43,6 +67,7 @@ export const actions: Actions = {
 					email,
 					password,
 					name,
+					...(username !== undefined && { username }),
 					callbackURL: '/'
 				}
 			});

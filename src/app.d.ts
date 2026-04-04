@@ -1,4 +1,6 @@
-import type { User, Session } from 'better-auth/minimal';
+import type { User as BetterAuthUser, Session } from 'better-auth/minimal';
+
+type User = BetterAuthUser & { username?: string | null };
 
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces

@@ -230,12 +230,9 @@ export function outputDataToBlocks(data: OutputData): PostBlock[] {
 				const cap = d.caption ?? '';
 				const lines = cap.split('\n');
 				const title = lines.length > 1 ? lines[0] : '';
-				const stripTags = (str: string) =>
-					str.replace(/<\/?[^>]+(>|$)/g, '');
+				const stripTags = (str: string) => str.replace(/<\/?[^>]+(>|$)/g, '');
 
-				const caption = lines.length > 1
-					? stripTags(lines.slice(1).join('\n'))
-					: stripTags(cap);
+				const caption = lines.length > 1 ? stripTags(lines.slice(1).join('\n')) : stripTags(cap);
 				out.push({
 					id,
 					type: 'image',
