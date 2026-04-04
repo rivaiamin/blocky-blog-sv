@@ -1,14 +1,15 @@
 # blocky-blog-sv
 
-A **block-based blog** built with **SvelteKit** and **Editor.js**. Posts are stored as JSON blocks in PostgreSQL (Drizzle ORM). Posts that contain **divider** blocks can be read as an **Instagram-style stories/slideshow** with autoplay, progress UI, and Animate.css transitions.
+A **multi-tenant, block-based blog** built with **SvelteKit** and **Editor.js**. Each author has a public **`/{username}`** space: their own **site settings** (theme, hero, name), **published posts** on their home page, and a **dashboard** to manage drafts and posts. Data lives in **PostgreSQL** (Drizzle ORM). Posts that contain **divider** blocks can be read as an **Instagram-style stories/slideshow** with autoplay, progress UI, and Animate.css transitions.
 
-Full product requirements for the stories experience are in [`PRD.md`](./PRD.md). Slide boundaries use `type === "divider"` in `posts.blocks[]`; there is no separate schema for slides.
+- **Product requirements**: [`PRD.md`](./PRD.md) — multi-tenant routing and author isolation, plus the stories/slideshow PRD. Slide boundaries use `type === "divider"` in `posts.blocks[]`; there is no separate schema for slides.
 
 ## Features
 
+- **Multi-tenant URLs**: `/{username}/` (public home), `/{username}/dashboard`, `/{username}/settings`, `/{username}/post/{slug}`, `/{username}/edit/{id}`. Root **`/`** is a neutral **author directory** (not themed per tenant).
 - **Editor**: paragraph, header, list, quote, **image** (authenticated upload to `static/uploads/editor` with server-side optimization via **sharp**), **divider** (slide breaks + horizontal rule in article view), bubble text, **GIF** (Klipy API when `KLIPY_API_KEY` is set).
 - **Reading**: normal article rendering, or **stories mode** when splitting by dividers yields **more than one** non-empty slide (see PRD for edge cases, controls, reduced motion, and acceptance criteria).
-- **Auth**: Better Auth (sign-in, sessions, protected edit routes).
+- **Auth**: Better Auth (email/password, sessions). Optional **username** at signup; **`/setup-username`** if an account has no handle yet. Legacy paths **`/dashboard`**, **`/settings`**, **`/edit/{id}`** redirect into the signed-in user’s tenant; **`/post/{slug}`** without an author prefix is no longer used (use `/{username}/post/{slug}`).
 
 ## Tech stack
 
@@ -36,6 +37,12 @@ Full product requirements for the stories experience are in [`PRD.md`](./PRD.md)
    ```sh
    pnpm db:push
    ```
+
+   **Upgrading from an older DB** (single global `site_settings` with `setting_key`): Drizzle may warn about adding **`user_id`** and dropping **`setting_key`**. That is expected: each author now owns one settings row keyed by **`user_id`**, not by `setting_key`. Before accepting data-loss prompts, either:
+   - run a **manual migration** (add nullable `user_id`, `UPDATE` the existing row to set `user_id` to your user’s id, then enforce NOT NULL / unique and drop `setting_key`), or
+   - accept reset of `site_settings` if you don’t need the old row.
+
+   Post **slugs** are **unique per author** (not globally); `pnpm db:push` may adjust constraints accordingly.
 
 ## Developing
 
@@ -74,4 +81,4 @@ This app was created with [`sv`](https://github.com/sveltejs/cli). To recreate a
 pnpm dlx sv@0.12.8 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright tailwindcss="plugins:typography" sveltekit-adapter="adapter:vercel" devtools-json drizzle="database:postgresql+postgresql:postgres.js+docker:no" better-auth="demo:password" mcp="ide:cursor+setup:remote" --install pnpm blocky-blog-sv
 ```
 
-Editor.js, stories UI, image pipeline, and extra tools were added afterward.
+Editor.js, stories UI, multi-tenant routing, image pipeline, and extra tools were added afterward.

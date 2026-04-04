@@ -1,3 +1,70 @@
+# Product requirements
+
+This file holds product requirements for major product areas. The **multi-tenant** section describes how authors and public URLs work; the **stories** section describes the Instagram-style reader experience.
+
+---
+
+## PRD: Multi-tenant author sites (UGC)
+
+### 1) Summary
+
+The app is a **user-generated content** blog platform: each registered user can have a **public handle (username)** and their own **site settings**, **public home page**, **posts**, and **dashboard**. Public URLs are namespaced by username. The **root `/`** is a neutral landing page that lists authors; it does **not** use any tenant’s theme.
+
+### 2) Goals
+
+- **Per-author isolation**: settings, published listing, and post URLs scoped to that author.
+- **Predictable URLs**: `/{username}/` (public home), `/{username}/dashboard`, `/{username}/settings`, `/{username}/post/{slug}`, `/{username}/edit/{id}`.
+- **Registration & identity**: email/password via Better Auth; **username** optional at signup or set later via **choose username** flow.
+- **Security**: dashboard, settings, and edit are only usable by the tenant owner (`403` if the signed-in user does not match `/{username}`).
+
+### 3) Non-goals (current scope)
+
+- Subdomains (e.g. `{username}.example.com`) — path-based tenants only.
+- Teams, organizations, or shared blogs.
+- Public profile fields beyond what site settings and posts already expose.
+
+### 4) Users & use cases
+
+- **Visitor**: open `/`, pick an author, read published posts at `/{username}/post/{slug}`.
+- **Author**: sign in, set username if missing, manage posts and front-page theme under their prefix.
+
+### 5) Routing & UX
+
+| Route                     | Who                    | Purpose                                                     |
+| ------------------------- | ---------------------- | ----------------------------------------------------------- |
+| `/`                       | Anyone                 | Directory / welcome; neutral chrome                         |
+| `/login`, `/logout`       | Anyone                 | Auth                                                        |
+| `/setup-username`         | Signed-in, no username | Claim handle; then redirect to `/{username}/dashboard`      |
+| `/{username}/`            | Anyone                 | Tenant home (hero + that author’s **published** posts only) |
+| `/{username}/dashboard`   | Owner                  | CRUD posts for that author                                  |
+| `/{username}/settings`    | Owner                  | Tenant **site** settings (name, hero, theme)                |
+| `/{username}/post/{slug}` | Anyone                 | Published post (404 if wrong author or unpublished)         |
+| `/{username}/edit/{id}`   | Owner                  | Editor (draft access per existing rules)                    |
+
+**Legacy redirects** (bookmark compatibility): `/dashboard`, `/settings`, `/edit/{id}` redirect into the signed-in user’s `/{username}/…` or `/setup-username`. Old `/post/{slug}` without an author segment returns **404** with a short message (slug is only unique per author).
+
+**Reserved usernames** must not collide with static routes (`login`, `api`, `dashboard`, etc.); implementation lives in server-side validation.
+
+### 6) Data model (high level)
+
+- **`user.username`**: nullable, unique when set; normalized (e.g. lowercase) for URLs and lookups.
+- **`site_settings`**: **one row per user** via `user_id` (replaces the former singleton `setting_key` / `default` row pattern).
+- **`posts`**: still keyed by `author_id`; **slug unique per author** (composite uniqueness), not globally — so two authors can both have a post slug `hello`.
+
+### 7) Functional requirements (acceptance)
+
+- **AC-M1**: Unknown or reserved `username` under `/{username}/…` yields **404**.
+- **AC-M2**: Tenant home shows only that author’s **published** posts.
+- **AC-M3**: Non-owner cannot open dashboard/settings/edit for another `username` (**403**).
+- **AC-M4**: User without username is guided to `/setup-username` before using tenant management URLs.
+- **AC-M5**: Root `/` does not load tenant theme from the database; tenant chrome uses that author’s `site_settings`.
+
+### 8) Database migration note
+
+Upgrades from the **single global** `site_settings` row (`setting_key`) must **attach that row to a `user_id`** before dropping `setting_key`. See README **Database** section.
+
+---
+
 ## PRD: Post Stories / Slideshow (Instagram-style)
 
 ### 1) Summary
@@ -17,7 +84,7 @@ Turn a standard blog post into an auto-playing **stories/slideshow** experience.
 - Author-defined per-slide duration.
 - Audio, video, stickers, reactions, analytics.
 - Full-screen modal/overlay viewer (current is embedded in page layout).
-- Server-side rendering changes or schema changes.
+- Server-side rendering changes or **stories-specific** schema changes (stories are derived from `posts.blocks[]`).
 
 ### 4) Users & Use cases
 
@@ -48,7 +115,7 @@ Turn a standard blog post into an auto-playing **stories/slideshow** experience.
 - **Keyboard**
   - `ArrowLeft` / `ArrowRight`: prev/next
   - `Space`: pause/play toggle
-  - `Escape`: exit stories view (current implementation: navigate back to the blog home)
+  - `Escape`: exit stories view (navigate to that post’s **tenant home**: `/{username}`)
 
 #### 5.3 Animations (default)
 
@@ -67,7 +134,7 @@ If `prefers-reduced-motion: reduce`:
 
 - Use existing post schema: `posts.blocks[]`.
 - Slide breaks are determined by blocks where `type === "divider"`.
-- No Convex schema changes.
+- Stored in PostgreSQL; no separate “slides” table.
 
 ### 7) Functional Requirements (Acceptance Criteria)
 
@@ -79,11 +146,11 @@ If `prefers-reduced-motion: reduce`:
 - **AC6**: With reduced motion enabled, autoplay and animations are disabled.
 - **AC7**: Posts that do not enter stories mode (including posts with no dividers, and posts where splitting yields only one slide) render exactly as the current article view.
 
-### 9) Dependencies
+### 8) Dependencies
 
 - **animate.css** (runtime CSS dependency)
 
-### 10) Open questions / Future enhancements
+### 9) Open questions / Future enhancements
 
 - Loop playback vs stop at last slide (currently stops/pauses at end).
 - Add “Preview stories” from editor (planned as optional QoL).
