@@ -2,7 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import BlockContent from '$lib/components/BlockContent.svelte';
+	import PostComments from '$lib/components/PostComments.svelte';
 	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
+	import PostSocialBar from '$lib/components/PostSocialBar.svelte';
 	import PostStoriesView from '$lib/components/PostStoriesView.svelte';
 	import { splitBlocksIntoSlides } from '$lib/slides';
 	import type { PostBlock } from '$lib/types/blocks';
@@ -50,6 +52,21 @@
 					{#each blocks as block (block.id)}
 						<BlockContent {block} />
 					{/each}
+				</div>
+
+				<div class="border-t border-slate-200/80 px-8 pb-8 lg:px-10">
+					<PostSocialBar
+						postId={data.post.id}
+						likeCount={data.social.likeCount}
+						commentCount={data.social.commentCount}
+						viewerHasLiked={data.social.viewerHasLiked}
+						viewer={data.user}
+					/>
+					<PostComments
+						postId={data.post.id}
+						comments={data.social.comments}
+						viewer={data.user}
+					/>
 				</div>
 			</article>
 		</div>

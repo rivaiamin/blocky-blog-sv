@@ -93,4 +93,90 @@ export const postsRelations = relations(posts, ({ one }) => ({
 	})
 }));
 
+export const postComments = pgTable(
+	'post_comments',
+	{
+		id: uuid('id').defaultRandom().primaryKey(),
+		postId: uuid('post_id')
+			.notNull()
+			.references(() => posts.id, { onDelete: 'cascade' }),
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' }),
+		body: text('body').notNull(),
+		createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
+	},
+	(t) => [index('post_comments_post_idx').on(t.postId)]
+);
+
+export const postLikes = pgTable(
+	'post_likes',
+	{
+		postId: uuid('post_id')
+			.notNull()
+			.references(() => posts.id, { onDelete: 'cascade' }),
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' }),
+		createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
+	},
+	(t) => [
+		uniqueIndex('post_likes_post_user_unique').on(t.postId, t.userId),
+		index('post_likes_post_idx').on(t.postId)
+	]
+);
+
+export const authorFollows = pgTable(
+	'author_follows',
+	{
+		followerId: text('follower_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' }),
+		followingId: text('following_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' }),
+		createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
+	},
+	(t) => [
+		uniqueIndex('author_follows_follower_following_unique').on(t.followerId, t.followingId),
+		index('author_follows_following_idx').on(t.followingId),
+		index('author_follows_follower_idx').on(t.followerId)
+	]
+);
+
+export const postCommentsRelations = relations(postComments, ({ one }) => ({
+	post: one(posts, {
+		fields: [postComments.postId],
+		references: [posts.id]
+	}),
+	author: one(user, {
+		fields: [postComments.userId],
+		references: [user.id]
+	})
+}));
+
+export const postLikesRelations = relations(postLikes, ({ one }) => ({
+	post: one(posts, {
+		fields: [postLikes.postId],
+		references: [posts.id]
+	}),
+	user: one(user, {
+		fields: [postLikes.userId],
+		references: [user.id]
+	})
+}));
+
+export const authorFollowsRelations = relations(authorFollows, ({ one }) => ({
+	follower: one(user, {
+		fields: [authorFollows.followerId],
+		references: [user.id],
+		relationName: 'follower'
+	}),
+	following: one(user, {
+		fields: [authorFollows.followingId],
+		references: [user.id],
+		relationName: 'following'
+	})
+}));
+
 export * from './auth.schema';

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AuthorFollowBar from '$lib/components/AuthorFollowBar.svelte';
 	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
 	import SiteProfileHero from '$lib/components/SiteProfileHero.svelte';
 	import { resolve } from '$app/paths';
@@ -6,6 +7,7 @@
 	let { data } = $props();
 
 	const u = $derived(data.tenantUser.username!);
+	const isOwner = $derived(Boolean(data.user && data.user.id === data.tenantUser.id));
 
 	const hero = $derived(
 		data.site?.hero ?? {
@@ -28,6 +30,14 @@
 
 <div class="mx-auto max-w-6xl">
 	<SiteProfileHero {hero} onCtaClick={ctaClick} />
+
+	<AuthorFollowBar
+		followingUserId={data.tenantUser.id}
+		followerCount={data.follow.total}
+		viewerFollows={data.follow.viewerFollows}
+		viewer={data.user}
+		{isOwner}
+	/>
 
 	{#if data.posts.length === 0}
 		<div class="py-20 text-center">
