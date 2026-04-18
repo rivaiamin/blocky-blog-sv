@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
+	import SiteProfileHero from '$lib/components/SiteProfileHero.svelte';
 	import { resolve } from '$app/paths';
 
 	let { data } = $props();
@@ -10,13 +11,13 @@
 		data.site?.hero ?? {
 			title: 'Welcome to My Blog',
 			description: 'Thoughts, stories, and ideas about technology, design, and life.',
+			coverImageUrl: '',
+			profileImageUrl: '',
 			imageUrl: '',
 			ctaLabel: '',
 			ctaHref: ''
 		}
 	);
-
-	const hasHeroImage = $derived(Boolean(hero.imageUrl?.trim()));
 
 	function ctaClick() {
 		const href = hero.ctaHref ?? '';
@@ -26,46 +27,7 @@
 </script>
 
 <div class="mx-auto max-w-6xl">
-	<section
-		class={hasHeroImage
-			? 'mb-20 flex min-h-112 flex-col items-center gap-10 lg:flex-row lg:gap-14'
-			: 'mb-16 text-center'}
-	>
-		{#if hasHeroImage}
-			<div class="order-1 flex w-full shrink-0 grow-0 justify-center lg:order-1 lg:w-1/3">
-				<div class="w-full max-w-lg overflow-hidden lg:aspect-auto">
-					<img src={hero.imageUrl} alt="" class="h-full w-full object-cover object-center" />
-				</div>
-			</div>
-		{/if}
-		<div
-			class={hasHeroImage ? 'order-2 flex w-full flex-col justify-center lg:order-2 lg:w-2/3' : ''}
-		>
-			<h1
-				class={hasHeroImage
-					? 'theme-text-primary mb-4 text-4xl leading-tight font-bold lg:text-2xl'
-					: 'theme-text-primary mb-6 text-5xl font-bold'}
-			>
-				{hero.title}
-			</h1>
-			<p
-				class={hasHeroImage
-					? 'mb-6 max-w-lg text-lg text-slate-600'
-					: 'theme-text-secondary mx-auto mb-6 max-w-2xl text-xl'}
-			>
-				{hero.description}
-			</p>
-			<div class="flex flex-wrap items-center gap-3">
-				{#if hero.ctaLabel}
-					<button
-						type="button"
-						class="theme-btn theme-bg-secondary rounded-lg px-6 py-3 font-semibold text-white shadow-md"
-						onclick={ctaClick}>{hero.ctaLabel}</button
-					>
-				{/if}
-			</div>
-		</div>
-	</section>
+	<SiteProfileHero {hero} onCtaClick={ctaClick} />
 
 	{#if data.posts.length === 0}
 		<div class="py-20 text-center">

@@ -7,6 +7,8 @@ const DEFAULT_SETTINGS = {
 	hero: {
 		title: 'Welcome to My Blog',
 		description: 'Thoughts, stories, and ideas about technology, design, and life.',
+		coverImageUrl: '',
+		profileImageUrl: '',
 		imageUrl: '',
 		ctaLabel: '',
 		ctaHref: ''
@@ -44,6 +46,8 @@ export async function updateSiteSettingsForUser(
 		hero: {
 			title: string;
 			description: string;
+			coverImageUrl?: string;
+			profileImageUrl?: string;
 			imageUrl?: string;
 			ctaLabel?: string;
 			ctaHref?: string;

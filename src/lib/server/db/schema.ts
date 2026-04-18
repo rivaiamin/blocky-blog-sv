@@ -65,6 +65,11 @@ export const siteSettings = pgTable('site_settings', {
 	hero: jsonb('hero').notNull().$type<{
 		title: string;
 		description: string;
+		/** Wide banner; preferred over legacy `imageUrl`. */
+		coverImageUrl?: string;
+		/** Circular avatar on the home hero. */
+		profileImageUrl?: string;
+		/** @deprecated Use `coverImageUrl`; still read as fallback when cover is empty. */
 		imageUrl?: string;
 		ctaLabel?: string;
 		ctaHref?: string;

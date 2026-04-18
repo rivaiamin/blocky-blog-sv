@@ -21,9 +21,11 @@ export const actions: Actions = {
 			hero: {
 				title: String(fd.get('heroTitle') ?? ''),
 				description: String(fd.get('heroDescription') ?? ''),
-				imageUrl: String(fd.get('heroImageUrl') ?? ''),
+				coverImageUrl: String(fd.get('heroCoverImageUrl') ?? ''),
+				profileImageUrl: String(fd.get('heroProfileImageUrl') ?? ''),
 				ctaLabel: String(fd.get('ctaLabel') ?? ''),
-				ctaHref: String(fd.get('ctaHref') ?? '')
+				ctaHref: String(fd.get('ctaHref') ?? ''),
+				imageUrl: ''
 			},
 			background: String(fd.get('background') ?? ''),
 			fontFamily: String(fd.get('fontFamily') ?? ''),

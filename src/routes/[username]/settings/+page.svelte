@@ -45,8 +45,11 @@
 			<h2 class="mb-4 text-lg font-semibold text-slate-900">Hero</h2>
 			<div class="space-y-4">
 				<div>
-					<label for="heroTitle" class="mb-1 block text-sm font-medium text-slate-700">Title</label>
+					<label for="heroTitle" class="mb-1 block text-sm font-medium text-slate-700"
+						>Display name</label
+					>
 					<input
+						id="heroTitle"
 						type="text"
 						name="heroTitle"
 						value={data.settings.hero.title}
@@ -55,9 +58,10 @@
 				</div>
 				<div>
 					<label for="heroDescription" class="mb-1 block text-sm font-medium text-slate-700"
-						>Description</label
+						>Short description</label
 					>
 					<textarea
+						id="heroDescription"
 						name="heroDescription"
 						rows="2"
 						bind:value={heroDescription}
@@ -65,13 +69,30 @@
 					></textarea>
 				</div>
 				<div>
-					<label for="heroImageUrl" class="mb-1 block text-sm font-medium text-slate-700"
-						>Image URL</label
+					<label for="heroCoverImageUrl" class="mb-1 block text-sm font-medium text-slate-700"
+						>Cover image URL</label
 					>
 					<input
+						id="heroCoverImageUrl"
 						type="text"
-						name="heroImageUrl"
-						value={data.settings.hero.imageUrl ?? ''}
+						name="heroCoverImageUrl"
+						value={data.settings.hero.coverImageUrl?.trim() ||
+							data.settings.hero.imageUrl?.trim() ||
+							''}
+						placeholder="Wide banner image"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+					/>
+				</div>
+				<div>
+					<label for="heroProfileImageUrl" class="mb-1 block text-sm font-medium text-slate-700"
+						>Profile image URL</label
+					>
+					<input
+						id="heroProfileImageUrl"
+						type="text"
+						name="heroProfileImageUrl"
+						value={data.settings.hero.profileImageUrl ?? ''}
+						placeholder="Circular avatar"
 						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
 					/>
 				</div>
@@ -81,6 +102,7 @@
 							>CTA label</label
 						>
 						<input
+							id="ctaLabel"
 							type="text"
 							name="ctaLabel"
 							value={data.settings.hero.ctaLabel ?? ''}
@@ -92,6 +114,7 @@
 							>CTA link</label
 						>
 						<input
+							id="ctaHref"
 							type="text"
 							name="ctaHref"
 							value={data.settings.hero.ctaHref ?? ''}
