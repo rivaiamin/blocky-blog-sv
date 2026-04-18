@@ -32,9 +32,9 @@
 		</div>
 
 		<div class="relative bg-white px-4 pt-0 pb-8 text-center sm:px-8">
-			<div class="-mt-16 mb-4 flex justify-center">
+			<div class="-mt-[3px] mb-4 flex justify-center">
 				<div
-					class="-mt-[52px] -mb-[52px] flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-200 shadow-lg ring-4 ring-white"
+					class="-mt-[100px] -mb-[100px] flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-200 shadow-lg ring-4 ring-white"
 				>
 					{#if profileUrl}
 						<img
@@ -52,7 +52,7 @@
 
 			<h1
 				id="site-hero-title"
-				class="theme-text-primary mb-3 text-2xl font-bold tracking-tight sm:text-3xl"
+				class="theme-text-primary mb-0 text-2xl font-bold tracking-tight sm:text-3xl"
 			>
 				{hero.title}
 			</h1>
