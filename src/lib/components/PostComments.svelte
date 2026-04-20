@@ -53,7 +53,7 @@
 				<textarea
 					bind:value={draft}
 					rows="3"
-					class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/25"
+					class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/25"
 					placeholder="Share your thoughts…"
 				></textarea>
 			</label>
@@ -71,7 +71,7 @@
 		</div>
 	{:else}
 		<p class="theme-text-secondary mb-8 text-sm">
-			<a href={loginHref} class="font-medium text-[--color-primary] underline hover:opacity-90"
+			<a href={loginHref} class="font-medium text-[var(--color-primary)] underline hover:opacity-90"
 				>Sign in</a
 			>
 			to join the conversation.

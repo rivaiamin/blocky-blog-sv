@@ -37,7 +37,7 @@
 				name="webName"
 				value={data.settings.webName}
 				placeholder="Site name in header"
-				class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+				class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 			/>
 		</section>
 
@@ -53,7 +53,7 @@
 						type="text"
 						name="heroTitle"
 						value={data.settings.hero.title}
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					/>
 				</div>
 				<div>
@@ -65,7 +65,7 @@
 						name="heroDescription"
 						rows="2"
 						bind:value={heroDescription}
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					></textarea>
 				</div>
 				<div>
@@ -80,7 +80,7 @@
 							data.settings.hero.imageUrl?.trim() ||
 							''}
 						placeholder="Wide banner image"
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					/>
 				</div>
 				<div>
@@ -93,7 +93,7 @@
 						name="heroProfileImageUrl"
 						value={data.settings.hero.profileImageUrl ?? ''}
 						placeholder="Circular avatar"
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					/>
 				</div>
 				<div class="grid gap-4 sm:grid-cols-2">
@@ -106,7 +106,7 @@
 							type="text"
 							name="ctaLabel"
 							value={data.settings.hero.ctaLabel ?? ''}
-							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 						/>
 					</div>
 					<div>
@@ -118,7 +118,7 @@
 							type="text"
 							name="ctaHref"
 							value={data.settings.hero.ctaHref ?? ''}
-							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 						/>
 					</div>
 				</div>
@@ -136,14 +136,14 @@
 						type="text"
 						name="background"
 						value={data.settings.background}
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					/>
 				</div>
 				<div>
 					<label for="fontFamily" class="mb-1 block text-sm font-medium text-slate-700">Font</label>
 					<select
 						name="fontFamily"
-						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+						class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 					>
 						{#each fonts as f (f.value)}
 							<option value={f.value} selected={f.value === data.settings.fontFamily}
@@ -161,7 +161,7 @@
 							type="text"
 							name="colorPrimary"
 							value={data.settings.colorScheme.primary}
-							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 						/>
 					</div>
 					<div>
@@ -172,7 +172,7 @@
 							type="text"
 							name="colorSecondary"
 							value={data.settings.colorScheme.secondary}
-							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+							class="w-full rounded-xl border border-slate-300 px-4 py-2 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 						/>
 					</div>
 				</div>

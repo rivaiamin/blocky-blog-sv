@@ -19,7 +19,7 @@
 				name="username"
 				required
 				autocomplete="username"
-				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+				class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 shadow-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 			/>
 		</label>
 		{#if form?.message}
@@ -27,7 +27,7 @@
 		{/if}
 		<button
 			type="submit"
-			class="w-full rounded-xl bg-[--color-primary] px-4 py-2.5 font-medium text-white hover:opacity-95"
+			class="w-full rounded-xl bg-[var(--color-primary)] px-4 py-2.5 font-medium text-white hover:opacity-95"
 			>Continue</button
 		>
 	</form>

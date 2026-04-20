@@ -60,7 +60,7 @@
 					{:else}
 						<a
 							href={resolve('/login')}
-							class="font-semibold text-[--color-primary] hover:opacity-80">Sign in</a
+							class="font-semibold text-[var(--color-primary)] hover:opacity-80">Sign in</a
 						>
 					{/if}
 				</div>

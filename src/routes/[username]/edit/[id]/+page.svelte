@@ -88,7 +88,7 @@
 				name="title"
 				required
 				bind:value={title}
-				class="w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+				class="w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 			/>
 		</div>
 
@@ -98,7 +98,7 @@
 				name="excerpt"
 				bind:value={excerpt}
 				rows="2"
-				class="w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+				class="w-full rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 			></textarea>
 		</div>
 
@@ -116,7 +116,7 @@
 					name="coverImage"
 					bind:value={coverImage}
 					placeholder="https://… or /uploads/editor/…"
-					class="min-w-0 flex-1 rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[--color-primary] focus:ring-2 focus:ring-[--color-primary]/30"
+					class="min-w-0 flex-1 rounded-xl border border-slate-300 px-4 py-2.5 outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
 				/>
 				<input
 					bind:this={coverFileInput}
