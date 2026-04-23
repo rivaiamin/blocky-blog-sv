@@ -23,8 +23,9 @@
 	<button
 		type="button"
 		onclick={signInGoogle}
-		class="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-800 hover:bg-slate-50"
+		class="mb-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-800 hover:bg-slate-50"
 	>
+		<img src="/google-logo.svg" alt="Google" class="h-4 w-4" />
 		Continue with Google
 	</button>
 	<form method="POST" action="?/signInEmail" use:enhance class="space-y-4">
