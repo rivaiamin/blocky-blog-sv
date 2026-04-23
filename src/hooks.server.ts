@@ -4,6 +4,12 @@ import { auth } from '$lib/server/auth';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
+	// For OAuth callbacks and other auth endpoints, let Better Auth run first.
+	// This avoids subtle cookie/state issues caused by running custom logic before the handler.
+	if (event.url.pathname.startsWith('/auth')) {
+		return svelteKitHandler({ event, resolve, auth, building });
+	}
+
 	const session = await auth.api.getSession({ headers: event.request.headers });
 
 	if (session) {

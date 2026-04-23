@@ -23,7 +23,7 @@
 				Own your blog, <span class="text-[var(--color-primary)]">keep it simple</span>, publish fast.
 			</h1>
 			<p class="mt-4 text-lg leading-relaxed text-slate-600">
-				Blocky Blog hosts independent, per-author sites with their own posts and settings. No noisy feeds, no
+				Pilakon hosts independent, per-author sites with their own posts and settings. No noisy feeds, no
 				algorithm — just clean pages, a straightforward editor, and a stable home under <code>/username</code>.
 			</p>
 
@@ -177,7 +177,7 @@
 					</div>
 
 					<div class="mt-4 rounded-2xl border border-slate-200/70 bg-slate-50 p-5">
-						<p class="text-sm font-semibold text-slate-900">Why Blocky Blog?</p>
+						<p class="text-sm font-semibold text-slate-900">Why Pilakon?</p>
 						<p class="mt-2 text-sm leading-relaxed text-slate-600">
 							It’s designed for many independent sites in one app. Each author’s content and settings are isolated by
 							default, making it easy to host multiple blogs without turning everything into a single “platform feed”.
@@ -399,7 +399,7 @@
 	<footer class="border-t border-slate-200/70 py-10 text-sm text-slate-600">
 		<div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
 			<div class="space-y-1">
-				<p class="font-semibold text-slate-900">Blocky Blog</p>
+				<p class="font-semibold text-slate-900">Pilakon</p>
 				<p>Independent blogs hosted with per-author spaces.</p>
 			</div>
 			<nav class="flex flex-wrap gap-x-6 gap-y-2">
@@ -417,6 +417,6 @@
 				{/if}
 			</nav>
 		</div>
-		<p class="mt-8 text-xs text-slate-500">© {new Date().getFullYear()} Blocky Blog. All rights reserved.</p>
+		<p class="mt-8 text-xs text-slate-500">© {new Date().getFullYear()} Pilakon. All rights reserved.</p>
 	</footer>
 </div>

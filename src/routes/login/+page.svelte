@@ -1,12 +1,32 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
+	import { authClient } from '$lib/auth-client';
 
 	let { form }: { form: ActionData } = $props();
+
+	async function signInGoogle() {
+		const result = await authClient.signIn.social({
+			provider: 'google',
+			callbackURL: '/dashboard',
+			errorCallbackURL: '/login',
+			newUserCallbackURL: '/setup-username'
+		});
+
+		const url = result?.data?.url;
+		if (url) window.location.href = url;
+	}
 </script>
 
 <div class="mx-auto max-w-md">
 	<h1 class="theme-text-primary mb-6 text-2xl font-bold">Sign in</h1>
+	<button
+		type="button"
+		onclick={signInGoogle}
+		class="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-800 hover:bg-slate-50"
+	>
+		Continue with Google
+	</button>
 	<form method="POST" action="?/signInEmail" use:enhance class="space-y-4">
 		<label class="block">
 			<span class="text-sm text-slate-700">Email</span>

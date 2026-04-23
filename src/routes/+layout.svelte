@@ -32,7 +32,7 @@
 				<a
 					href={resolve('/')}
 					class="text-xl font-bold text-slate-900 transition-opacity hover:opacity-80"
-					>Blocky Blog</a
+					>Pilakon</a
 				>
 				<div class="flex items-center gap-4">
 					{#if data.user}
