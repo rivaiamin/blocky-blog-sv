@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AuthorFollowBar from '$lib/components/AuthorFollowBar.svelte';
 	import PostCoverHero from '$lib/components/PostCoverHero.svelte';
 	import SiteProfileHero from '$lib/components/SiteProfileHero.svelte';
 	import { resolve } from '$app/paths';
@@ -29,9 +28,9 @@
 </script>
 
 <div class="mx-auto max-w-6xl">
-	<SiteProfileHero {hero} onCtaClick={ctaClick} />
-
-	<AuthorFollowBar
+	<SiteProfileHero
+		{hero}
+		onCtaClick={ctaClick}
 		followingUserId={data.tenantUser.id}
 		followerCount={data.follow.total}
 		viewerFollows={data.follow.viewerFollows}

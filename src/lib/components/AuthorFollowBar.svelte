@@ -39,7 +39,7 @@
 </script>
 
 <div
-	class="mb-10 flex flex-wrap items-center justify-center gap-3 border-b border-slate-200/80 pb-8"
+	class="flex flex-wrap items-center justify-center gap-3 border-slate-200/80 pb-8"
 	aria-label="Follow author"
 >
 	<p class="theme-text-secondary text-sm">
